@@ -1,0 +1,13 @@
+{
+  "name": "scrubs-project",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix api",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
