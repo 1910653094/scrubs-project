@@ -5,7 +5,7 @@ const client = require('../helper/elephantSQL');
 
 router.get('/', async (req, res, next) => {
     try {
-        const results = await client.query('SELECT * FROM test');
+        const results = await client.query('SELECT * FROM employee');
         res.json(results.rows);
     } catch (err) {
         console.log(err);
