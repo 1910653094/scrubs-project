@@ -4,7 +4,9 @@
   "scripts": {
     "client": "npm start --prefix client",
     "server": "npm start --prefix api",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "server-dev": "npm run dev --prefix api",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client\""
   },
   "dependencies": {},
   "devDependencies": {
