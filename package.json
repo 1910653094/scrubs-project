@@ -8,7 +8,10 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "dev": "concurrently \"npm run server-dev\" \"npm run client\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.0.1"
+  },
   "devDependencies": {
     "concurrently": "^5.3.0"
   }
