@@ -9,7 +9,8 @@ const employeesRouter = require('./routes/HSM/employees');
 
 
 // MSM (for me it's weird to separate MSM from HSM like to have two routes for employees one for HSM and another for MSM no?)
-const scrubsRouter = require('./routes/MSM/scrubs');
+const scrubsRouterMSM = require('./routes/MSM/scrub');
+const historyRouterMSM = require('./routes/MSM/borrow_history');
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -24,6 +25,7 @@ app.use('/hsm/history', historyRouter);
 app.use('/hsm/employess', employeesRouter);
 
 
-app.use('/msm/scrubs', scrubsRouter);
+app.use('/msm/scrubs', scrubsRouterMSM);
+app.use('/msm/history', historyRouterMSM);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
