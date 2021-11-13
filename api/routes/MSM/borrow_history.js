@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Personal borrow history : GET /msm/history/
 router.get('/', async (req, res, next) => {
-    const id_employee = 3//req.query.id;
+    const id_employee = req.query.id;
 
     try {
         let results = await client.query(
