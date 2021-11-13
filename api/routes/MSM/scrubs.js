@@ -10,14 +10,19 @@ router.get('/overdue', async (req, res, next) => {
 
     try {
         let result = await db.query(
-            'SELECT sc.id_scrub, sc.borrowed, sc.borrowed_date, sc.return_date, sc.id_scrub_type, sc.id_employee ' +
+            'SELECT sc.id_scrub_type, sc.borrowed_date, sc.return_date ' +
             'FROM scrub sc ' +
             'WHERE sc.return_date IS NULL AND sc.borrowed = \'true\' ' +
             'AND current_date - sc.borrowed_date > 7 AND sc.id_employee = $1;', [id_employee]);
 
-        return res.status(200).json(result.rows);
+        result = {
+            scrubsOverdue : result.rows,
+            quantity : result.rows.length
+        }
+
+        return res.status(200).json(result);
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(500).json({ error: err });
     }
 });
 
@@ -27,13 +32,18 @@ router.get('/borrowed/currently', async (req, res, next) => {
 
     try {
         let result = await db.query(
-            'SELECT sc.id_scrub, sc.borrowed, sc.borrowed_date, sc.return_date, sc.id_scrub_type, sc.id_employee ' + 
-            'FROM scrub sc '+
+            'SELECT sc.id_scrub_type, sc.borrowed_date, sc.return_date ' +
+            'FROM scrub sc ' +
             'WHERE sc.borrowed = \'true\' AND sc.return_date IS NULL AND sc.id_employee = $1;', [id_employee]);
 
-        return res.status(200).json(result.rows);
+        result = {
+            scrubsCurrentlyBorrowed : result.rows,
+            quantity : result.rows.length
+        }
+
+        return res.status(200).json(result);
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(500).json({ error: err });
     }
 });
 
