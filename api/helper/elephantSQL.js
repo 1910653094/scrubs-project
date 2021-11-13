@@ -8,4 +8,5 @@ const databaseConfig = {
 };
 const client = new pg.Pool(databaseConfig);
 
+
 module.exports = client;
