@@ -27,8 +27,6 @@ function Sidebar() {
                 </Link>           
             </div>
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-    
-
                 <ul className='nav-menu-items' onClick={showSidebar}>
                     <li className='navbar-toggle'>
                         <Link to='#' className='menu-bars'>
@@ -49,6 +47,7 @@ function Sidebar() {
                 </ul>
 
             </nav>
+
                 <Routes>
                     <Route exact path='/'  element={<Dashboard />}/>
                     <Route exact path='/myprofile' element={<MyProfile />}/>

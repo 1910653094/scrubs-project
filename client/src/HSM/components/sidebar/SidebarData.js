@@ -2,7 +2,7 @@ import React from 'react'
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import * as BsIcons from 'react-icons/bs';
-import * as CgIcons from 'react-icons/cg'
+import * as CgIcons from 'react-icons/cg';
 
 export const SidebarData = [
     {
