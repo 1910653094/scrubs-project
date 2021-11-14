@@ -8,6 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
+import '../../css/ScrubActions.css';
+
 
 
 
@@ -125,9 +127,10 @@ function ScrubsToRoom() {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button>
+            {/*<button  id="s-c-green" className="scrub-actions-box" onClick={handleClickOpen}>
+                Assign to Scrub Room 
+    </button>*/}
+                <button onClick={handleClickOpen} id="s-c-green" className="scrub-actions-box">Assign to Srub Room</button>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Assign Scrubs to a Room</DialogTitle>
                     <DialogContent>
@@ -141,7 +144,7 @@ function ScrubsToRoom() {
                                         id="outlined-select-scrubRoom"
                                         select
                                         label="Select Scrub Room"
-                                        style={{width: '40ch'}}
+                                        style={{width: '35ch'}}
                                     >
                                     {scrubRooms.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -168,7 +171,7 @@ function ScrubsToRoom() {
                                         id="outlined-select-type"
                                         select
                                         label="Select Type"
-                                        style={{width: '14ch'}}
+                                        style={{width: '13ch'}}
                                     >
                                     {scrubTypes.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -180,7 +183,7 @@ function ScrubsToRoom() {
                                         id="outlined-select-size"
                                         select
                                         label="Select Size"
-                                        style={{width: '14ch'}}
+                                        style={{width: '13ch'}}
 
                                     >
                                     {sizes.map((option) => (
@@ -193,7 +196,7 @@ function ScrubsToRoom() {
                                         id="outlined-select-colors"
                                         select
                                         label="Select Color"
-                                        style={{width: '14ch'}}
+                                        style={{width: '13ch'}}
                                     >
                                     {colors.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -205,7 +208,7 @@ function ScrubsToRoom() {
                                         id="outlined-select-genders"
                                         select
                                         label="Select Gender"
-                                        style={{width: '14ch'}}
+                                        style={{width: '13ch'}}
                                     >
                                     {genders.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
