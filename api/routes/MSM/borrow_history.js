@@ -1,22 +1,15 @@
 const express = require('express');
 
-const client = require('../../helper/elephantSQL');
+var BorrowHistory = require("../../models/BorrowHistory");
 
 const router = express.Router();
-
 
 // Personal borrow history : GET /msm/history/
 router.get('/', async (req, res, next) => {
     const id_employee = req.query.id;
-
     try {
-        let results = await client.query(
-            'SELECT bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity ' +
-            'FROM borrow_history bh ' +
-            'WHERE bh.id_employee = $1', [id_employee]
-        );
-
-        return res.status(200).json(results.rows);
+        let results = await BorrowHistory.getHistoryWithIdEmployee(id_employee);
+        return res.status(200).json(results);
     } catch (err) {
         return res.status(500).json({ error: err });
     }
