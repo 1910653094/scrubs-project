@@ -1,5 +1,6 @@
 import React from 'react';
-import './css/modal.css';
+import '../../css/modal.css';
+
 
 const Modal = ({modalGiveScrubChange })=>{
     const onSubmitBtn = () => {

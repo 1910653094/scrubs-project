@@ -4,7 +4,7 @@ const authSlice = createSlice({
 	name: 'authSlice',
 	initialState: {
 		isAuthed: true,
-		role: 'medical',
+		role: 'housekeeper',
 	},
 	reducers: {},
 });
