@@ -1,19 +1,9 @@
-import React from 'react'
-import '../components/dashboard/dashboard.css';
-import ScrubActions ,{ useState }from '../components/dashboard/components-dashboard/ScrubActions';
-/*
-function Dashboard() {
-    return (
-        <div >
-            <Dashboard></Dashboard>
-        </div>
-    );
-}
-*/
+import './dashboard.css';
 
+import ScrubActions ,{ useState }from './components-dashboard/ScrubActions';
 
-//const Dashboard  = ()=>{
- function Dashboard(){
+const Dashboard  = ()=>{
+ 
   return(
    
     <div className="content">
