@@ -13,6 +13,8 @@ import {
 	MSProfile,
 	HSStaff,
 	HSProfile,
+	HSRooms,
+	HSReports,
 } from './pages';
 import { ProtectedRoute } from './components';
 import './App.scss';
@@ -28,6 +30,8 @@ function App() {
 				<Route path='h' element={<ProtectedRoute permission='housekeeper' />}>
 					<Route path='dashboard' element={<HSDashboard />} />
 					<Route path='staff' element={<HSStaff />} />
+					<Route path='rooms' element={<HSRooms />} />
+					<Route path='reports' element={<HSReports />} />
 					<Route path='profile' element={<HSProfile />} />
 				</Route>
 
