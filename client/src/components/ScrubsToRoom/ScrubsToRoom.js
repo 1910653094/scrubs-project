@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import '../../css/ScrubActions.css';
+import '../DashboardComponents/ScrubActions.scss';
 
 
 
@@ -127,9 +127,6 @@ function ScrubsToRoom() {
 
     return (
         <div>
-            {/*<button  id="s-c-green" className="scrub-actions-box" onClick={handleClickOpen}>
-                Assign to Scrub Room 
-    </button>*/}
                 <button onClick={handleClickOpen} id="s-c-green" className="scrub-actions-box">Assign to Srub Room</button>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>Assign Scrubs to a Room</DialogTitle>

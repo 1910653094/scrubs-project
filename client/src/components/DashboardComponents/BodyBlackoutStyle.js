@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/body-blackout-style.css';
+import './body-blackout-style.scss';
 
 const BodyBlackoutStyle = ({ modalGiveScrubChange }) => {
     return (

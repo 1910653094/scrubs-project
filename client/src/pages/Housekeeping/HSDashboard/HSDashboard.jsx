@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageWrapper, Card } from '../../../layouts';
 import './HSDashboard.scss';
+import ScrubActions from '../../../components/DashboardComponents/ScrubActions';
 
 const HSDashboard = () => {
 	return (
@@ -10,7 +11,9 @@ const HSDashboard = () => {
 				<div className='col five'>
 					<div className='row one'>
 						<div className='col two'>
-							<Card title='Scrub Actions' />
+							<Card title='Scrub Actions'>
+								<ScrubActions />
+							</Card>
 						</div>
 						<div className='col three'>
 							<Card title='General Scrub Information' />
