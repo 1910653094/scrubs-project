@@ -1,6 +1,7 @@
-"strict mode";
+// "strict mode";
+"use strict";
 
-const { PreparedStatement } = require('pg-promise')();
+const { PreparedStatement: PS } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
 
 class Report {
@@ -18,7 +19,7 @@ class Report {
 }
 
 async function insertReportinDb(report_type, description, id_scrub, id_employee) {
-    const stmt = new PreparedStatement({
+    const stmt = new PS({
         name: "Report Scrub",
         text: `INSERT INTO report(report_type, description, id_scrub, id_employee) 
       VALUES ($1,$2,$3,$4);`,

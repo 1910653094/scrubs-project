@@ -3,7 +3,6 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
 const client = require('../helper/elephantSQL');
-const getUser = require('../helper/getUser');
 
 const router = express.Router();
 

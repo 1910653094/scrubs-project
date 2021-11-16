@@ -1,6 +1,6 @@
 const express = require('express');
 
-var BorrowHistory = require("../../models/BorrowHistory");
+const BorrowHistory = require("../../models/BorrowHistory");
 
 const router = express.Router();
 

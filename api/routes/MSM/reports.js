@@ -1,6 +1,6 @@
 const express = require('express');
 
-var Report = require("../../models/Report");
+const Report = require("../../models/Report");
 
 const router = express.Router();
 

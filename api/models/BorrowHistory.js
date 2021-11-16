@@ -1,6 +1,7 @@
-"strict mode";
+//"strict mode";
+"use strict";
 
-const { PreparedStatement } = require('pg-promise')();
+const { PreparedStatement: PS } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
 
 class BorrowHistory {
@@ -20,7 +21,7 @@ class BorrowHistory {
 }
 
 async function selectHistoryFromDb(id_employee) {
-    const stmt = new PreparedStatement({
+    const stmt = new PS({
         name: "Get History",
         text: `SELECT bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity 
       FROM borrow_history bh 

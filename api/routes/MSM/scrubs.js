@@ -1,6 +1,6 @@
 const express = require('express');
 
-var Scrub = require("../../models/Scrub");
+const Scrub = require("../../models/Scrub");
 
 const router = express.Router();
 

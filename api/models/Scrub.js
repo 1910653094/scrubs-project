@@ -1,6 +1,7 @@
-"strict mode";
+// "strict mode";
+"use strict";
 
-const { PreparedStatement } = require('pg-promise')();
+const { PreparedStatement: PS } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
  
 class Scrub {
@@ -21,11 +22,26 @@ class Scrub {
     return selectScrubsCurrentlyBorrowedFromDb(id_employee);
   }
 
+  borrowScrub = async () => {
+    const stmt = new PS({
+      name: "Get * Employees",
+      text: 'INSERT INTO employee (email, password, "name", profession, gender)',
+      values: [email, name, profession, gender]
+    });
+
+    let results;
+    await db.any(stmt)
+        .then(data => results = data)
+        .catch(err => {
+          console.log(err);
+        });
+    return results;
+  }
 
 }
 
 async function selectOverdueScrubsFromDb(id_employee) {
-  const stmt = new PreparedStatement({
+  const stmt = new PS({
     name: "Get Personal Overdue Scrubs",
     text: `SELECT sc.id_scrub_type, sc.borrowed_date, sc.return_date 
     FROM scrub sc
@@ -46,7 +62,7 @@ async function selectOverdueScrubsFromDb(id_employee) {
 }
 
 async function selectScrubsCurrentlyBorrowedFromDb(id_employee) {
-  const stmt = new PreparedStatement({
+  const stmt = new PS({
     name: "Get Personal Scrubs Currently Borrowed",
     text: `SELECT sc.id_scrub_type, sc.borrowed_date, sc.return_date 
     FROM scrub sc 
