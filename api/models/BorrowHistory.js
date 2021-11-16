@@ -1,5 +1,6 @@
 "strict mode";
 
+const { PreparedStatement } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
 
 class BorrowHistory {
@@ -14,17 +15,24 @@ class BorrowHistory {
     }
 
     static getHistoryWithIdEmployee(id_employee) {
-        return getHistoryFromDb(id_employee);
+        return selectHistoryFromDb(id_employee);
     }
 }
 
-async function getHistoryFromDb(id_employee) {
-    let results = await db.query(
-        `SELECT bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity 
-        FROM borrow_history bh 
-        WHERE bh.id_employee = ${id_employee}`
-    );
-    return results.rows;
+async function selectHistoryFromDb(id_employee) {
+    const stmt = new PreparedStatement({
+        name: "Get History",
+        text: `SELECT bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity 
+      FROM borrow_history bh 
+      WHERE bh.id_employee = $1`,
+        values: [3]
+    });
+
+    let results;
+    await db.any(stmt).then(function (data) {
+        results = data;
+    });
+    return results;
 }
 
 module.exports = BorrowHistory;

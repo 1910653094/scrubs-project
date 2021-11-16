@@ -17,6 +17,7 @@ router.post('/', async (req, res, next) => {
         Report.reportItem(report_type,description,id_scrub,id_employee);
         return res.status(200);
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ error: err });
     }
 });

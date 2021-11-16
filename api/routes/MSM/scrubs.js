@@ -11,6 +11,7 @@ router.get('/overdue', async (req, res, next) => {
         let results = await Scrub.getOverdueScrubsWithIdEmployee(id_employee);
         return res.status(200).json(results);
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ error: err });
     }
 });
@@ -22,6 +23,7 @@ router.get('/borrowed/currently', async (req, res, next) => {
         let results = await Scrub.getScrubsCurrentlyBorrowedWithIdEmployee(id_employee);
         return res.status(200).json(results);
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ error: err });
     }
 });

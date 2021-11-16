@@ -11,6 +11,7 @@ router.get('/', async (req, res, next) => {
         let results = await BorrowHistory.getHistoryWithIdEmployee(id_employee);
         return res.status(200).json(results);
     } catch (err) {
+        console.log(err);
         return res.status(500).json({ error: err });
     }
 });
