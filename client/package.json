@@ -2,6 +2,12 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@mui/material": "^5.1.0",
     "@reduxjs/toolkit": "^1.5.1",
@@ -17,13 +23,8 @@
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
-    "react-icons": "^4.3.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-icons": "^4.3.1",
+    "react-swipeable-views": "^0.14.0"
   },
   "eslintConfig": {
     "extends": "react-app"

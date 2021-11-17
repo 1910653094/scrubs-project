@@ -2,6 +2,7 @@ import React from 'react';
 import { PageWrapper, Card } from '../../../layouts';
 import './HSDashboard.scss';
 import ScrubActions from '../../../components/DashboardComponents/ScrubActions';
+import RadioButtons from '../../../components/DashboardComponents/RadioButtons';
 
 const HSDashboard = () => {
 	return (
@@ -20,7 +21,9 @@ const HSDashboard = () => {
 						</div>
 					</div>
 					<div className='row two'>
-						<Card title='Staff Member Information' />
+						<Card title='Staff Member Information'>
+							<RadioButtons />
+						</Card>
 					</div>
 				</div>
 				<div className='col two'>
