@@ -3,6 +3,8 @@
 
 const { PreparedStatement: PS } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
+const BorrowHistory = require("./BorrowHistory");
+const query = require("../helper/query");
  
 class Scrub {
   constructor(id_scrub, borrowed, borrowed_date, return_date, id_scrub_type, id_employee) {
@@ -22,22 +24,47 @@ class Scrub {
     return selectScrubsCurrentlyBorrowedFromDb(id_employee);
   }
 
-  borrowScrub = async () => {
-    const stmt = new PS({
-      name: "Get * Employees",
-      text: 'INSERT INTO employee (email, password, "name", profession, gender)',
-      values: [email, name, profession, gender]
+  // function to get all scrubs which are neither borrowed nor reported
+  getAllFreeScrubs = async () => await query(
+        "Get * free scrubs",
+        'SELECT * FROM scrub WHERE borrowed IS FALSE AND id_scrub NOT IN ( SELECT id_scrub FROM report );',
+        []
+    );
+
+  // function to borrow an amount of scrubs with on scrub type
+  borrowScrubs = async amount => {
+    const allObj = await this.getAllFreeScrubs();
+    if (allObj.status !== 200) {
+      return allObj;
+    }
+
+    if (allObj.length < amount) {
+      return {
+        status: 400,
+        response: "There are not enough free scrubs"
+      };
+    }
+
+    const scrubs = allObj.response
+        .map(s => new Scrub(s.id_scrub, s.borrowed, s.borrowed_date, s.return_date, s.id_scrub_type, s.id_employee))
+        .filter(s => s.id_scrub_type === this.id_scrub_type);
+    const willBeBorrowedScrubs = scrubs.slice(0, amount);
+
+    await willBeBorrowedScrubs.every(async scrub => {
+      let res = await query(
+          "Update specific scrub to be borrowed",
+          "UPDATE scrub SET borrowed = true, borrowed_date = $1, return_date = $2, id_employee = $3 WHERE id_scrub = $4",
+          [this.borrowed_date, this.return_date, this.id_employee, scrub.id_scrub]
+      );
+      if (res.status !== 200) {
+        return false;
+      }
     });
 
-    let results;
-    await db.any(stmt)
-        .then(data => results = data)
-        .catch(err => {
-          console.log(err);
-        });
-    return results;
+    return await new BorrowHistory(
+        null, amount, this.borrowed_date, this.return_date, false, this.id_scrub_type, this.id_employee
+    ).insertBorrowHistory();
   }
-
 }
 
 async function selectOverdueScrubsFromDb(id_employee) {

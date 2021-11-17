@@ -1,8 +1,7 @@
 "use strict";
 
-const { PreparedStatement: PS } = require('pg-promise')();
-const db = require('../helper/elephantSQL');
 const bcrypt = require("bcrypt");
+const query = require("../helper/query");
 
 class Employee {
     constructor(id, email, password, name, profession) {
@@ -15,7 +14,7 @@ class Employee {
 
     getAllEmployees = async () => await query(
             "Get * employees",
-            'SELECT email, password, "name", profession FROM employee',
+            'SELECT * FROM employee',
             []
         );
 
@@ -40,7 +39,7 @@ class Employee {
             return allObj;
         }
         const employee = allObj.response
-            .map(e => new Employee(e.id, e.email, e.password, e.name, e.profession))
+            .map(e => new Employee(e.id_employee, e.email, e.password, e.name, e.profession))
             .find(e => e.email === this.email);
 
         const match = await new Promise((resolve, reject) => {
@@ -49,35 +48,12 @@ class Employee {
                 resolve(res);
             })
         });
+        delete employee.password;
         return {
             status: match ? 200 : 400,
-            response: match ? { success: 'Matching emails and password' } : { error: 'Passwords do not match' }
+            response: match ? employee : { res: 'Passwords do not match' }
         };
     };
-}
-
-const query = async (name, sql, v) => {
-    const stmt = new PS({
-        name: name,
-        text: sql,
-        values: v
-    });
-
-    let res;
-    await db.any(stmt)
-        .then(data => {
-            res = {
-                status: 200,
-                response: data
-            };
-        })
-        .catch(err => {
-            return res = {
-                status: 400,
-                response: err
-            }
-        });
-    return res;
 }
 
 module.exports = Employee;

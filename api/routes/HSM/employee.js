@@ -1,8 +1,6 @@
 const express = require('express');
 const { query, body, validationResult } = require('express-validator');
 
-const client = require('../../helper/elephantSQL');
-
 const Employee = require("../../models/Employee");
 
 
@@ -23,7 +21,10 @@ router.get('/', [
 
 router.get('/all', async (req, res, next) => {
     let resObj = await new Employee().getAllEmployees();
-    resObj.response.map(e => delete e.password);
+    resObj.response.map(e => {
+        delete e.id_employee;
+        delete e.password;
+    });
     return res.status(resObj.status).json(resObj.response);
 });
 

@@ -3,6 +3,7 @@
 
 const { PreparedStatement: PS } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
+const query = require("../helper/query");
 
 class BorrowHistory {
     constructor(id_history, quantity, borrowed_date, return_date, returned, id_scrub_type, id_employee) {
@@ -18,6 +19,12 @@ class BorrowHistory {
     static getHistoryWithIdEmployee(id_employee) {
         return selectHistoryFromDb(id_employee);
     }
+
+    insertBorrowHistory = async () => await query(
+        "Insert new borrowed history",
+        'INSERT INTO borrow_history (quantity, borrowed_date, return_date, returned, id_scrub_type, id_employee) VALUES ($1, $2, $3, FALSE, $4, $5) RETURNING *',
+        [this.quantity, this.borrowed_date, this.return_date, this.id_scrub_type, this.id_employee]
+    );
 }
 
 async function selectHistoryFromDb(id_employee) {

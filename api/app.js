@@ -5,6 +5,7 @@ const cors = require('cors');
 const usersRouter = require('./routes/users');
 const historyRouter = require('./routes/HSM/borrow_history');
 const employeeRouter = require('./routes/HSM/employee');
+const scrubsRouter = require('./routes/HSM/scrubs');
 
 
 // MSM (for me it's weird to separate MSM from HSM like to have two routes for employees one for HSM and another for MSM no?)
@@ -22,6 +23,7 @@ app.use('/users', usersRouter);
 
 app.use('/hsm/history', historyRouter);
 app.use('/hsm/employee', employeeRouter);
+app.use('/hsm/scrubs', scrubsRouter);
 
 
 app.use('/msm/scrubs', scrubsRouterMSM);
