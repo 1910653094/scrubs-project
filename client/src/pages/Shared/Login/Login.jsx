@@ -1,11 +1,4 @@
-import { PrimaryButton } from "../../../components";
-
 const Login = () => {
-  return (
-    <div>
-      <PrimaryButton text="FINISH" />
-      <div>Login</div>
-    </div>
-  );
+  return <div>Login</div>;
 };
 export default Login;
