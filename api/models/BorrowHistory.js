@@ -22,10 +22,10 @@ class BorrowHistory {
 async function selectHistoryFromDb(id_employee) {
     const stmt = new PreparedStatement({
         name: "Get History",
-        text: `SELECT bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity 
-      FROM borrow_history bh 
-      WHERE bh.id_employee = $1`,
-        values: [3]
+        text: `SELECT bh.id_history, bh.id_scrub_type, bh.borrowed_date, bh.return_date, bh.quantity 
+            FROM borrow_history bh 
+            WHERE bh.id_employee = $1`,
+        values: [id_employee]
     });
 
     let results;

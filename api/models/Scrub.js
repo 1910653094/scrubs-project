@@ -2,7 +2,7 @@
 
 const { PreparedStatement } = require('pg-promise')();
 const db = require('../helper/elephantSQL');
- 
+
 class Scrub {
   constructor(id_scrub, borrowed, borrowed_date, return_date, id_scrub_type, id_employee) {
     this.id_scrub = id_scrub;
@@ -21,6 +21,14 @@ class Scrub {
     return selectScrubsCurrentlyBorrowedFromDb(id_employee);
   }
 
+
+  static getAllInformationBorrowedScrubItems(id_scrub) {
+    return selectAllInformationBorrowedScrubItemsFromDb(id_scrub);
+  }
+
+  static reportScrubsItem(id_employee, id_scrub_type) {
+    return reportScrubsIteminDb(id_employee,id_scrub_type);
+  }
 
 }
 
@@ -64,6 +72,44 @@ async function selectScrubsCurrentlyBorrowedFromDb(id_employee) {
 
   return results;
 }
+
+async function selectAllInformationBorrowedScrubItemsFromDb(id_history) {
+  const stmt = new PreparedStatement({
+    name: "Get Information about scrubs borrowed",
+    text: `SELECT st.description, /*st.type, st.gender*/ st.size, bh.borrowed_date, bh.id_given_by, bh.quantity,bh.return_date
+    FROM borrow_history bh, scrub_type st
+    WHERE bh.id_scrub_type = st.id_scrub_type
+    AND bh.id_history = $1;`,
+    values: [id_history]
+  });
+
+  let result;
+  await db.one(stmt).then(function (data) {
+    result = data;
+  });
+
+  return result;
+}
+
+async function reportScrubsIteminDb(id_employee, id_scrub_type) {
+  //TODO
+  const stmt = new PreparedStatement({
+    name: "Get Information about scrubs borrowed",
+    text: `SELECT st.description, /*st.type, st.gender*/ st.size, bh.borrowed_date, bh.id_given_by ,bh.quantity,bh.return_date
+    FROM borrow_history bh, scrub_type st
+    WHERE bh.id_scrub_type = st.id_scrub_type
+    AND bh.id_history = $1;`,
+    values: [1]
+  });
+
+  let result;
+  await db.one(stmt).then(function (data) {
+    result = data;
+  });
+
+  return result;
+}
+
 
 
 module.exports = Scrub;

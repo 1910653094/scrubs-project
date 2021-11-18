@@ -28,5 +28,30 @@ router.get('/borrowed/currently', async (req, res, next) => {
     }
 });
 
+// Borrowed Scrub Item : GET /msm/scrubs/
+router.get('/', async (req, res, next) => {
+    const id_scrub = req.query.id;
+    try {
+        let result = await Scrub.getAllInformationBorrowedScrubItems(id_scrub);
+        return res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: err });
+    }
+});
+
+// Return items : GET /msm/scrubs/return
+router.get('/return', async (req, res, next) => {
+    const id_employee = req.query.id_employee;
+    const id_scrub_type = req.query.id_scrub_type;
+    try {
+        let result = await Scrub.getAllInformationBorrowedScrubItems(id_scrub);
+        return res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: err });
+    }
+});
+
 
 module.exports = router;
