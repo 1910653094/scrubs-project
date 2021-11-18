@@ -1,11 +1,11 @@
 import { PageWrapper, Card } from '../../../layouts';
 
-const HSProfile = () => {
+const HSRooms = () => {
 	return (
 		<PageWrapper>
-			<h2>Profile</h2>
+			<h2>Scrub Rooms</h2>
 			<Card />
 		</PageWrapper>
 	);
 };
-export default HSProfile;
+export default HSRooms;

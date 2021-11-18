@@ -6,3 +6,5 @@ export { default as HSDashboard } from './Housekeeping/HSDashboard/HSDashboard';
 export { default as MSProfile } from './Medical/MSProfile/MSProfile';
 export { default as HSProfile } from './Housekeeping/HSProfile/HSProfile';
 export { default as HSStaff } from './Housekeeping/HSStaff/HSStaff';
+export { default as HSRooms } from './Housekeeping/HSRooms/HSRooms';
+export { default as HSReports } from './Housekeeping/HSReports/HSReports';

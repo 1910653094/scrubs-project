@@ -1,10 +1,10 @@
 
 import React ,{useState}from 'react';
 import Modal from './Modal';
-import BodyBlackoutStyle from './BodyBlackoutStyle'
-
-import '../../css/ScrubActions.css';
+import BodyBlackoutStyle from './BodyBlackoutStyle';
 import ScrubsToRoom from '../ScrubsToRoom/ScrubsToRoom';
+import './ScrubActions.scss';
+
 
 function  ScrubActions () {
     let [modalGiveScrub, modalGiveScrubChange] = useState(false);
@@ -18,7 +18,6 @@ function  ScrubActions () {
     };
         return (
             <div className="scrub-actions">
-                <h4>Scrub Actions</h4>
                 <div className="scrub-actions-div">
                     <button id="s-c-blue" className="scrub-actions-box" onClick={() => onGSModal(true)}>
                         Give to Scrub Member
