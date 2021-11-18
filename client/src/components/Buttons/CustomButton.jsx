@@ -5,14 +5,14 @@ import { COLORS } from "../../assets";
 const CustomButton = ({
   type,
   text,
-  textColor = COLORS.veryLightBlue,
-  backgroundColor = COLORS.lightBlue,
+  textColor = COLORS.blueLight5,
+  backgroundColor = COLORS.blueLight1,
   onClick,
   fontSize = "24px",
 }) => {
   const TYPES = {
     primary: {
-      color: "white",
+      color: COLORS.blueLight5,
       backgroundColor: backgroundColor,
       fontFamily: "Barlow",
       fontWeight: "bold",
