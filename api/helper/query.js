@@ -17,7 +17,7 @@ const query = async (name, sql, v) => {
             };
         })
         .catch(err => {
-            return res = {
+            res = {
                 status: 400,
                 response: err
             };
