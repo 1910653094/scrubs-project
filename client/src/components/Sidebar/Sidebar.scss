@@ -1,0 +1,21 @@
+@use '../../sass/variables' as c;
+.sidebar {
+	padding: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-flow: column nowrap;
+	min-width: 300px;
+	background-color: c.$blue-light-4;
+
+	.logo {
+		font-size: 32px;
+		font-weight: bold;
+		color: c.$blue-dark-4;
+	}
+
+	.items {
+		position: absolute;
+		top: 25%;
+	}
+}
