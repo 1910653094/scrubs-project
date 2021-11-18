@@ -34,7 +34,7 @@ class Scrub {
   getAllCurrentlyBorrowedScrubsByEmployee = async () => await query(
       'Get * borrowed scrubs by distinct employee',
       'SELECT id_scrub_type, borrowed_date, return_date FROM scrub WHERE borrowed IS TRUE ' +
-      'AND id_scrub NOT IN ( SELECT id_scrub FROM report ) AND id_employee = 3;',
+      'AND id_scrub NOT IN ( SELECT id_scrub FROM report ) AND id_employee = $1;',
       [this.id_employee]
   )
 
