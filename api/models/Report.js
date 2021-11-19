@@ -1,7 +1,5 @@
 "use strict";
 
-/*const { PreparedStatement: PS } = require('pg-promise')();
-const db = require('../helper/elephantSQL');*/
 const query = require("../helper/query");
 
 class Report {
@@ -19,19 +17,9 @@ class Report {
         [this.report_type, this.description, this.id_scrub, this.id_reported_by]
     );
 
-    /*static reportItem(report_type, description, id_scrub, id_employee) {
-        insertReportinDb(report_type, description, id_scrub, id_employee);
-    }*/
+    
+
 }
 
-/*async function insertReportinDb(report_type, description, id_scrub, id_employee) {
-    const stmt = new PS({
-        name: "Report Scrub",
-        text: `INSERT INTO report(report_type, description, id_scrub, id_reported_by)
-      VALUES ($1,$2,$3,$4);`,
-        values: [report_type, description, id_scrub, id_employee]
-    });
-    await db.none(stmt);
-}*/
 
 module.exports = Report;

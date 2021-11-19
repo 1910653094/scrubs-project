@@ -19,7 +19,7 @@ class BorrowHistory {
 
     getBorrowHistoryFromEmployee = async id => await query(
         'Get * borrow history from distinct employee',
-        'SELECT quantity, bh.borrowed_date, return_by, completely_returned, id_scrub_type ' +
+        'SELECT id_history, quantity, bh.borrowed_date, return_by, completely_returned, id_scrub_type ' +
         'FROM scrub_borrow_history ' +
         'JOIN borrow_history bh USING(id_history) ' +
         'JOIN scrub USING(id_scrub) ' +

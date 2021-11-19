@@ -21,7 +21,7 @@ class Employee {
 
     getEmployee = async () => await query(
             'Get specified employee',
-            'SELECT email, password, "name", profession, gender FROM employee WHERE id_employee = $1',
+            'SELECT name, email, profession, gender FROM employee WHERE id_employee = $1',
             [this.id]
         );
 

@@ -6,7 +6,7 @@ const Scrub = require("../models/Scrub");
 const router = express.Router();
 
 
-router.get('/overdue',[
+router.get('/overdue', [
     query('id_employee')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
@@ -15,11 +15,11 @@ router.get('/overdue',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(req.query.id_employee).getAllOverdueScrubsByEmployee();
+    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllOverdueScrubsByEmployee();
     return res.status(resObj.status).json(resObj.response);
 });
 
-router.get('/borrowed/currently',[
+router.get('/borrowed/currently', [
     query('id_employee')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
@@ -28,7 +28,20 @@ router.get('/borrowed/currently',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(req.query.id_employee).getAllCurrentlyBorrowedScrubsByEmployee();
+    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllCurrentlyBorrowedScrubsByEmployee();
+    return res.status(resObj.status).json(resObj.response);
+});
+
+router.get('/borrowed/details', [
+    query('id_history')
+        .isInt({ min: 1 }),
+], async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    let resObj = await new Scrub(null, null, null, null, null, null, null, null).getDetailsBorrowedScrubItem(req.query.id_history);
     return res.status(resObj.status).json(resObj.response);
 });
 
