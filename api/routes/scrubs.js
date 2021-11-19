@@ -11,11 +11,11 @@ router.get('/overdue',[
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
     const errors = validationResult(req);
-
+    
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(req.query.id_employee).getAllOverdueScrubsByEmployee();
+    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllOverdueScrubsByEmployee();
     return res.status(resObj.status).json(resObj.response);
 });
 
@@ -28,7 +28,20 @@ router.get('/borrowed/currently',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(req.query.id_employee).getAllCurrentlyBorrowedScrubsByEmployee();
+    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllCurrentlyBorrowedScrubsByEmployee();
+    return res.status(resObj.status).json(resObj.response);
+});
+
+router.get('/borrowed/currently/details',[
+    query('id_scrub')
+        .isInt({ min: 1 }),
+], async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    let resObj = await new Scrub(req.query.id_scrub, null, null, null, null, null, null, null).getAllDetailsBorrowedScrubItem();
     return res.status(resObj.status).json(resObj.response);
 });
 
@@ -58,5 +71,7 @@ router.post('/borrow', [
         .employeeBorrowsScrubs(obj.amount);
     return res.status(resObj.status).json(resObj.response);
 });
+
+
 
 module.exports = router;

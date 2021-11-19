@@ -8,6 +8,7 @@ const historyRouter = require('./routes/borrow_history');
 const reportsRouter = require('./routes/reports');
 const roomsRouter = require('./routes/rooms');
 const scrubsRouter = require('./routes/scrubs');
+const returnsRouter = require('./routes/returns');
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -20,6 +21,7 @@ app.use('/history', historyRouter);
 app.use('/reports', reportsRouter);
 app.use('/rooms', roomsRouter);
 app.use('/scrubs', scrubsRouter);
+app.use('/returns',returnsRouter);
 
 
 // scheduled Task which runs every day at midnight (time flexible)

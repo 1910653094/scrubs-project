@@ -5,7 +5,8 @@ const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 
-// TODO test
+
+//TODO have to update that
 router.post('/',[
     body('report_type')
         .not().isEmpty(),
