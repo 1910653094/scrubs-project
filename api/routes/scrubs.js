@@ -32,8 +32,8 @@ router.get('/borrowed/currently',[
     return res.status(resObj.status).json(resObj.response);
 });
 
-router.get('/borrowed/currently/details',[
-    query('id_scrub')
+router.get('/borrowed/details',[
+    query('id_history')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
     const errors = validationResult(req);
@@ -41,7 +41,7 @@ router.get('/borrowed/currently/details',[
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(req.query.id_scrub, null, null, null, null, null, null, null).getAllDetailsBorrowedScrubItem();
+    let resObj = await new Scrub(null, null, null, null, null, null, null, null).getDetailsBorrowedScrubItem(req.query.id_history);
     return res.status(resObj.status).json(resObj.response);
 });
 

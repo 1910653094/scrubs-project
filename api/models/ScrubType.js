@@ -12,10 +12,10 @@ class ScrubType {
         this.image = image;
     };
 
-    getScrubType = async id => await query(
+    getScrubType = async () => await query(
         'Get Scrub Type',
-        'SELECT * FROM scrub_type WHERE scrub_type = $1;',
-        [id]
+        'SELECT * FROM scrub_type WHERE id_scrub_type = $1;',
+        [this.id]
     );
 }
 

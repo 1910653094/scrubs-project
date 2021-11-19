@@ -40,17 +40,14 @@ class Scrub {
     [this.id_employee]
   )
 
-  // function to get all details about an borrowed scrub item (filtered by a scrub)
-  getAllDetailsBorrowedScrubItem = async () => await query(
+  // function to get details about borrowed scrubs
+  getDetailsBorrowedScrubItem = async (id_history) => await query(
     'Get * details borrowed scrub item',
     `SELECT DISTINCT st.description, st.gender, st.size, bh.borrowed_date, sc.id_given_by, bh.quantity, bh.return_by, bh.id_history
       FROM scrub_type st, scrub sc, borrow_history bh, scrub_borrow_history sbh
       WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history AND sc.id_scrub_type = st.id_scrub_type
-      AND bh.id_history IN
-      (SELECT bh2.id_history
-      FROM borrow_history bh2, scrub_borrow_history sbh2
-      WHERE sbh2.id_history = bh2.id_history AND sbh2.id_scrub = $1);`,
-    [this.id_scrub]
+      AND bh.id_history = $1;`,
+    [id_history]
   )
 
   // function to borrow an amount of scrubs with on scrub type
