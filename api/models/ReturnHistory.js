@@ -22,17 +22,17 @@ class ReturnHistory {
         (SELECT sc.id_scrub
         FROM scrub_borrow_history sbh, borrow_history bh, scrub sc
         WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history
-        AND bh.id_history = $1 AND sc.borrowed IS TRUE
+        AND bh.id_history = $1 AND sc.borrowed IS TRUE AND sc.id_scrub NOT IN (SELECT r.id_scrub FROM report r)
         LIMIT $2);`,
         [this.id_history, this.quantity]
     );
 
-    getNumberOfUnreturnedScrubsByHistory = async () => await query(
-        `Count the number of unreturned scrubs`,
+    getNumberOfUnreturnedUnreportedScrubsByHistory = async () => await query(
+        `Count the number of unreturned & unreported scrubs`,
         `SELECT COUNT(sc.id_scrub)
         FROM scrub_borrow_history sbh, borrow_history bh, scrub sc
         WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history
-        AND bh.id_history = $1 AND sc.borrowed IS TRUE;`,
+        AND bh.id_history = $1 AND sc.borrowed IS TRUE AND sc.id_scrub NOT IN (SELECT r.id_scrub FROM report r);`,
         [this.id_history]
     );
 

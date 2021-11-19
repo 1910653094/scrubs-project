@@ -1,7 +1,5 @@
 "use strict";
 
-/*const { PreparedStatement: PS } = require('pg-promise')();
-const db = require('../helper/elephantSQL');*/
 const query = require("../helper/query");
 
 class Report {
@@ -18,6 +16,8 @@ class Report {
         'INSERT INTO report(report_type, description, id_scrub, id_reported_by) VALUES ($1, $2, $3, $4)',
         [this.report_type, this.description, this.id_scrub, this.id_reported_by]
     );
+
+    
 
 }
 

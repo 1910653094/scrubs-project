@@ -24,11 +24,11 @@ class Scrub {
 
   // function to get all scrubs that are overdue (filtered by one employee)
   getAllOverdueScrubsByEmployee = async () => await query(
-      'Get * overdue scrubs by distinct employee',
-      'SELECT id_scrub_type, borrowed_date, return_date FROM scrub WHERE borrowed IS TRUE AND return_date < NOW() ' +
-      'AND id_scrub NOT IN ( SELECT id_scrub FROM report ) AND id_employee = $1;',
-      [this.id_employee]
-    )
+    'Get * overdue scrubs by distinct employee',
+    'SELECT id_scrub_type, borrowed_date, return_date FROM scrub WHERE borrowed IS TRUE AND return_date < NOW() ' +
+    'AND id_scrub NOT IN ( SELECT id_scrub FROM report ) AND id_employee = $1;',
+    [this.id_employee]
+  )
 
 
 
@@ -48,6 +48,18 @@ class Scrub {
       WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history AND sc.id_scrub_type = st.id_scrub_type
       AND bh.id_history = $1;`,
     [id_history]
+  )
+
+  // function to get scrub borrowed from an id_history with a limit of rows and not reported yet
+  getScrubUnreportedfromHistoryWithLimit = async (id_history, quantity) => await query(
+    'Get scrub borrowed from id history with limit',
+    `SELECT sc.id_scrub
+      FROM scrub_borrow_history sbh, borrow_history bh, scrub sc
+      WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history
+      AND bh.id_history = $1 AND sc.borrowed IS TRUE 
+      AND sc.id_scrub NOT IN (SELECT r.id_scrub FROM report r)
+      LIMIT $2;`,
+    [id_history, quantity]
   )
 
   // function to borrow an amount of scrubs with on scrub type

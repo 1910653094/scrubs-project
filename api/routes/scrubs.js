@@ -6,12 +6,12 @@ const Scrub = require("../models/Scrub");
 const router = express.Router();
 
 
-router.get('/overdue',[
+router.get('/overdue', [
     query('id_employee')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
     const errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -19,7 +19,7 @@ router.get('/overdue',[
     return res.status(resObj.status).json(resObj.response);
 });
 
-router.get('/borrowed/currently',[
+router.get('/borrowed/currently', [
     query('id_employee')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
@@ -32,7 +32,7 @@ router.get('/borrowed/currently',[
     return res.status(resObj.status).json(resObj.response);
 });
 
-router.get('/borrowed/details',[
+router.get('/borrowed/details', [
     query('id_history')
         .isInt({ min: 1 }),
 ], async (req, res, next) => {
@@ -71,7 +71,5 @@ router.post('/borrow', [
         .employeeBorrowsScrubs(obj.amount);
     return res.status(resObj.status).json(resObj.response);
 });
-
-
 
 module.exports = router;

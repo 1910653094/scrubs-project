@@ -22,10 +22,9 @@ router.post('/', [
     let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     let returnHistory = new ReturnHistory(null, date, obj.quantity, obj.id_history);
 
-    let unreturnedScrubs = await returnHistory.getNumberOfUnreturnedScrubsByHistory();
-
+    let unreturnedScrubs = await returnHistory.getNumberOfUnreturnedUnreportedScrubsByHistory();
     if(unreturnedScrubs.response[0].count - obj.quantity < 0){
-        return res.status(400).json({errors: "All the scrubs are already returned"})
+        return res.status(400).json({errors: "Not enough scrubs to return"})
     }
 
     // TODO => add transaction sql commit for these things is better!
