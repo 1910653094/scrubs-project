@@ -5,7 +5,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 const ProtectedRoute = ({ permission }) => {
 	const { isAuthed, role } = useSelector(({ auth }) => auth);
 
-	if (!isAuthed) return <Navigate to='/' />;
+	if (!isAuthed) return <Navigate to='/login' />;
 	if (role !== permission) return <Navigate to='/denied' />;
 	return <Outlet />;
 };
