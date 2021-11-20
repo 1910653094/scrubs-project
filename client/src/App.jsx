@@ -28,6 +28,7 @@ function App() {
 				<Route path='denied' element={<AccessDenied />} />
 
 				<Route path='h' element={<ProtectedRoute permission='housekeeper' />}>
+					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<HSDashboard />} />
 					<Route path='staff' element={<HSStaff />} />
 					<Route path='rooms' element={<HSRooms />} />
@@ -36,6 +37,7 @@ function App() {
 				</Route>
 
 				<Route path='m' element={<ProtectedRoute permission='medical' />}>
+					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<MSDashboard />} />
 					<Route path='profile' element={<MSProfile />} />
 				</Route>
