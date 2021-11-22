@@ -1,0 +1,33 @@
+.box {
+  width: 23rem;
+  background-color: white;
+  height: 4rem;
+}
+
+li {
+  list-style-type: disc;
+}
+li::marker {
+  color: rgb(175, 63, 63);
+  font-size: 1.5rem;
+}
+.notice {
+  width: 97%;
+  height: 1rem;
+}
+.author {
+  float: left;
+  width: 55%;
+  color: rgb(108, 136, 204);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  font-weight: bold;
+}
+.timestamp {
+  width: 40%;
+  display: inline-block;
+  color: rgb(159, 178, 221);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  font-weight: bold;
+}
