@@ -42,6 +42,27 @@ router.get('/withBorrowings', [
     return res.status(resObj.status).json(resObj.response);
 });
 
+router.put('/preferences', [
+    body('shoe_size_preference')
+        .isInt({ min: 1 }),
+    body('top_size_preference')
+        .not().isEmpty(),
+    body('bottom_size_preference')
+        .not().isEmpty(),
+    body('id_employee')
+        .isInt({ min: 1 })
+], async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    let obj = req.body;
+    let resObj = await new Employee(obj.id_employee, null, null, null, null, null, obj.shoe_size_preference, obj.top_size_preference, obj.bottom_size_preference).updatePreferences();
+    return res.status(resObj.status).json(resObj.response);
+});
+
 router.post('/', [
     body('email')
         .isEmail()

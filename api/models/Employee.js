@@ -4,26 +4,29 @@ const bcrypt = require("bcrypt");
 const query = require("../helper/query");
 
 class Employee {
-    constructor(id, email, password, name, profession, gender) {
+    constructor(id, email, password, name, profession, gender, shoe_size_preference, top_size_preference, bottom_size_preference) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.profession = profession;
         this.gender = gender;
+        this.shoe_size_preference = shoe_size_preference;
+        this.top_size_preference = top_size_preference;
+        this.bottom_size_preference = bottom_size_preference;
     };
 
     getAllEmployees = async () => await query(
-            'Get * employees',
-            'SELECT * FROM employee',
-            []
-        );
+        'Get * employees',
+        'SELECT * FROM employee',
+        []
+    );
 
     getEmployee = async () => await query(
-            'Get specified employee',
-            'SELECT name, email, profession, gender FROM employee WHERE id_employee = $1',
-            [this.id]
-        );
+        'Get specified employee',
+        'SELECT name, email, profession, gender, shoe_size_preference, top_size_preference, bottom_size_preference FROM employee WHERE id_employee = $1',
+        [this.id]
+    );
 
     getEmployeeWithBorrowings = async () => {
         const obj = await this.getEmployee();
@@ -59,6 +62,14 @@ class Employee {
             'Insert employee',
             'INSERT INTO employee (email, password, "name", profession, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [this.email, password, this.name, this.profession, this.gender]
+        );
+    };
+
+    updatePreferences = async () => {
+        return await query(
+            'Update preferences',
+            `UPDATE public.employee SET shoe_size_preference = $1, top_size_preference = $2, bottom_size_preference = $3 WHERE id_employee = $4`,
+            [this.shoe_size_preference, this.top_size_preference, this.bottom_size_preference, this.id]
         );
     };
 
