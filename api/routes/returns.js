@@ -23,14 +23,14 @@ router.post('/', [
     let returnHistory = new ReturnHistory(null, date, obj.quantity, obj.id_history);
 
     let unreturnedScrubs = await returnHistory.getNumberOfUnreturnedUnreportedScrubsByHistory();
-    if(unreturnedScrubs.response[0].count - obj.quantity < 0){
-        return res.status(400).json({errors: "Not enough scrubs to return"})
+    if (unreturnedScrubs.response[0].count - obj.quantity < 0) {
+        return res.status(400).json({ errors: "Not enough scrubs to return" })
     }
 
     // TODO => add transaction sql commit for these things is better!
     await returnHistory.setBorrowedStateScrubsToFalse();
 
-    if(unreturnedScrubs.response[0].count - obj.quantity <= 0){
+    if (unreturnedScrubs.response[0].count - obj.quantity <= 0) {
         await returnHistory.setCompletelyReturnedTrue();
     }
     let resObj = await returnHistory.insertReturn();

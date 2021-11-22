@@ -23,7 +23,7 @@ app.use('/reports', reportsRouter);
 app.use('/rooms', roomsRouter);
 app.use('/scrubs', scrubsRouter);
 app.use('/returns',returnsRouter);
-app.use("/scrubs/types",scrubsTypesRouter);
+app.use('/scrubs/types',scrubsTypesRouter);
 
 
 // scheduled Task which runs every day at midnight (time flexible)
