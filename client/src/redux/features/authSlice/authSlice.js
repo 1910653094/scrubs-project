@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-	name: 'authSlice',
-	initialState: {
-		isAuthed: true,
-		role: 'housekeeper',
-	},
-	reducers: {},
+  name: "authSlice",
+  initialState: {
+    isAuthed: true,
+    role: "medical",
+  },
+  reducers: {},
 });
 
 export const {} = authSlice.actions;

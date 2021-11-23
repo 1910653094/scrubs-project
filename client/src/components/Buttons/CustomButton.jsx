@@ -9,6 +9,7 @@ const CustomButton = ({
   backgroundColor = COLORS.blueLight1,
   onClick,
   fontSize = "24px",
+  letterSpacing = "0.06em",
 }) => {
   const TYPES = {
     primary: {
@@ -19,6 +20,7 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
+      letterSpacing: letterSpacing,
     },
     secondary: {
       color: textColor,
@@ -28,6 +30,7 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
+      letterSpacing: letterSpacing,
     },
     tertiary: {
       color: textColor,
@@ -37,6 +40,7 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
+      letterSpacing: letterSpacing,
     },
   };
   return (

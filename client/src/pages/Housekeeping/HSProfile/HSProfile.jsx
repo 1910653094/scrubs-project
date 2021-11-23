@@ -1,11 +1,10 @@
 import { PageWrapper, Card } from "../../../layouts";
-import { Spinner } from "../../../components";
 
 const HSProfile = () => {
   return (
     <PageWrapper>
       <h2>Profile</h2>
-      <Card />
+      <Card></Card>
     </PageWrapper>
   );
 };
