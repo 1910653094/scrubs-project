@@ -4,6 +4,7 @@ import { ReactComponent as Report } from "../../../assets/icons/Report.svg";
 import { CustomButton } from "../../../components";
 import { DetailedInformation } from "../../../components";
 import { Status } from "../../../components";
+import { Input } from "../../../components";
 import { COLORS } from "../../../assets";
 import "./MSScrubsDetails.scss";
 
@@ -37,24 +38,37 @@ const MSProfile = () => {
         <div className="status-icon">
           <Status type="overdue" />
         </div>
-        <DetailedInformation
-          title="General Information Scrubs"
-          type="Doctor"
-          color="Green"
-          gender="Male"
-          size="L"
-        ></DetailedInformation>
-        <DetailedInformation
-          title="Borrowing Information"
-          borrowed_on="23/12/2021"
-          given_by="James P. Sullivan"
-          returned_by="24/12/2021"
-          items_borrowed="10"
-        ></DetailedInformation>
-        <div className="spacer"></div>
+        <div className="detailed-info-container">
+          <DetailedInformation
+            title="Scrubs information"
+            items={[
+              { attr: "type", val: "Doctor" },
+              { attr: "color", val: "Green" },
+              { attr: "Gender", val: "Male" },
+              { attr: "size", val: "L" },
+            ]}
+          />
+          <DetailedInformation
+            title="Borrowing information"
+            items={[
+              { attr: "borrowed on", val: "23/12/2021" },
+              { attr: "given by", val: "James P. Sullivan" },
+              { attr: "return by", val: "24/12/2021" },
+              { attr: "items borrowed", val: "10" },
+            ]}
+          />
+        </div>
+
         <div className="return-items-container">
           <div className="item-return-text">Select items to return</div>
-          <div className="return-items-subcontainer"></div>
+          <div className="return-items-subcontainer">
+            <Input type="number" maxWidth="3.5rem" />
+            <CustomButton
+              type="primary"
+              text="return items"
+              fontSize="16px"
+            ></CustomButton>
+          </div>
         </div>
       </div>
     </div>

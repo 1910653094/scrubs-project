@@ -8,8 +8,7 @@ const CustomButton = ({
   textColor = COLORS.blueLight5,
   backgroundColor = COLORS.blueLight1,
   onClick,
-  fontSize = "24px",
-  letterSpacing = "0.06em",
+  fontSize = "1.125rem",
 }) => {
   const TYPES = {
     primary: {
@@ -20,7 +19,6 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
-      letterSpacing: letterSpacing,
     },
     secondary: {
       color: textColor,
@@ -30,7 +28,6 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
-      letterSpacing: letterSpacing,
     },
     tertiary: {
       color: textColor,
@@ -40,13 +37,12 @@ const CustomButton = ({
       letterSpacing: "0.06cm",
       borderRadius: "5px",
       fontSize: fontSize,
-      letterSpacing: letterSpacing,
     },
   };
   return (
     <Button
       style={TYPES[type]}
-      variant={type == "tertiary" ? "text" : "contained"}
+      variant={type === "tertiary" ? "text" : "contained"}
       disableElevation
       onClick={onClick}
     >
