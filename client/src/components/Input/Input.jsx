@@ -11,7 +11,7 @@ const Input = ({
 }) => {
 	return (
 		<div className='custom-input' style={{ maxWidth: maxWidth }}>
-			<div className='input-title'>{title}</div>
+			{title && <div className='input-title'>{title}</div>}
 			<input
 				type={type}
 				placeholder={placeholder}
