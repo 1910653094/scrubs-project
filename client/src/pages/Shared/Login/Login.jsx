@@ -34,7 +34,7 @@ const Login = () => {
 				Please login to access the page
 				<Input
 					title='Email'
-					type='number'
+					type='email'
 					value={emailInput || ''}
 					placeholder='Enter your email'
 					onChange={(e) => setEmailInput(e.target.value)}

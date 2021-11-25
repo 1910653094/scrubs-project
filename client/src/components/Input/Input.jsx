@@ -1,8 +1,16 @@
 import './Input.scss';
 
-const Input = ({ title, placeholder, value, onChange, type, errorMessage }) => {
+const Input = ({
+	title,
+	placeholder,
+	value,
+	onChange,
+	type,
+	errorMessage,
+	maxWidth = 320,
+}) => {
 	return (
-		<div className='custom-input'>
+		<div className='custom-input' style={{ maxWidth: maxWidth }}>
 			<div className='input-title'>{title}</div>
 			<input
 				type={type}
