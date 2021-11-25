@@ -1,8 +1,12 @@
-import React from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+import './Spinner.scss';
 
-const Spinner = () => {
-  return <CircularProgress />;
-};
+const Spinner = () => (
+	<div class='spinner'>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+);
 
 export default Spinner;
