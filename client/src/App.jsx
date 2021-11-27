@@ -38,7 +38,7 @@ function App() {
 
         <Route path="m" element={<ProtectedRoute permission="medical" />}>
           <Route path="" element={<Navigate to="dashboard" />} />
-          <Route path="dashboard" element={<MSProfile />} /> // change to
+          <Route path="dashboard" element={<MSDashboard />} /> // change to
           MSDashboard
           <Route path="profile" element={<MSProfile />} />
         </Route>
