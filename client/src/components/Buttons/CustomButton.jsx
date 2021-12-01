@@ -8,7 +8,7 @@ const CustomButton = ({
   textColor = COLORS.blueLight5,
   backgroundColor = COLORS.blueLight1,
   onClick,
-  fontSize = "24px",
+  fontSize = "1.125rem",
 }) => {
   const TYPES = {
     primary: {
@@ -42,7 +42,7 @@ const CustomButton = ({
   return (
     <Button
       style={TYPES[type]}
-      variant={type == "tertiary" ? "text" : "contained"}
+      variant={type === "tertiary" ? "text" : "contained"}
       disableElevation
       onClick={onClick}
     >

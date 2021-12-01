@@ -58,7 +58,14 @@ class Employee {
     };
 
     insertEmployee = async () => {
-        const password = bcrypt.hashSync(this.password, 10);
+        const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const pwdLen = 16;
+        const randPassword = Array(pwdLen)
+            .fill(pwdChars)
+            .map(x => x[Math.floor(Math.random() * x.length)])
+            .join('');
+
+        const password = bcrypt.hashSync(randPassword, 10);
         const resObj = await query(
             'Insert employee',
             'INSERT INTO employee (email, password, "name", profession, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
@@ -70,7 +77,7 @@ class Employee {
         }
 
         const subject = 'Your account';
-        const text = `Your account has been created:\nUsername: ${this.email}\nPassword: ${this.password}`;
+        const text = `Your account has been created:\nUsername: ${this.email}\nPassword: ${randPassword}`;
 
         const email = new EmailSender(this.email, subject, text);
         email.setUp();
