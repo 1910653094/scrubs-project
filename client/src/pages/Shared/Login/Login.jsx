@@ -20,7 +20,7 @@ const Login = () => {
 		dispatch(loginUser({ email: emailInput, password: passwordInput }));
 	}, [emailInput, passwordInput]);
 
-	const { isAuthed, role } = useSelector(({ auth }) => auth);
+	const { isAuthed, role, error } = useSelector(({ auth }) => auth);
 
 	// This checks if the user is authenticated.
 	if (isAuthed) {
@@ -56,6 +56,12 @@ const Login = () => {
 					placeholder='Enter your password'
 					onChange={(e) => setPasswordInput(e.target.value)}
 				/>
+				{error?.errors?.length >= 0 &&
+					error.errors.map((err) => (
+						<div className='error-message'>
+							{err.param}: {err.msg}
+						</div>
+					))}
 				<div className='actions'>
 					<CustomButton
 						type='primary'

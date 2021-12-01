@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
 				localStorage.setItem('role', data.profession);
 				return { ...data };
 			} else {
-				return thunkAPI.rejectWithValue({ error: data.res });
+				return thunkAPI.rejectWithValue({ error: data });
 			}
 		} catch (e) {
 			console.log('Error', e.response.data);
@@ -68,7 +68,7 @@ const authSlice = createSlice({
 			state.isAuthed = false;
 			state.role = undefined;
 			state.isLoading = false;
-			state.error = payload;
+			state.error = payload.error;
 		},
 	},
 });
