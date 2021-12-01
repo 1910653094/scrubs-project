@@ -4,7 +4,7 @@ import './DetailedInformation.scss';
 const DetailedInformtaion = ({ title, items }) => {
 	return (
 		<div className='detailed-information'>
-			<h3 className='title'>{title}</h3>
+			{title && <h3 className='title'>{title}</h3>}
 			<ul className='list'>
 				{items &&
 					items.map(({ attr, val }) => {

@@ -4,6 +4,8 @@ import {
 	Route,
 	Navigate,
 } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
 	Login,
 	HSDashboard,
@@ -15,19 +17,28 @@ import {
 	HSProfile,
 	HSRooms,
 	HSReports,
+	Logout,
 } from './pages';
 import { ProtectedRoute } from './components';
 import './App.scss';
+import { verifyUserInStorage } from './redux/features/authSlice/authSlice';
 
 function App() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(verifyUserInStorage());
+	}, []);
+
 	return (
 		<Router>
 			<Routes>
 				<Route path='/' element={<Navigate to='/login' />} />
 				<Route path='login' element={<Login />} />
+
+				<Route path='logout' element={<Logout />} />
 				<Route path='denied' element={<AccessDenied />} />
 
-				<Route path='h' element={<ProtectedRoute permission='housekeeper' />}>
+				<Route exact path='h' element={<ProtectedRoute permission='hsm' />}>
 					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<HSDashboard />} />
 					<Route path='staff' element={<HSStaff />} />
@@ -36,7 +47,7 @@ function App() {
 					<Route path='profile' element={<HSProfile />} />
 				</Route>
 
-				<Route path='m' element={<ProtectedRoute permission='medical' />}>
+				<Route exact path='m' element={<ProtectedRoute permission='msm' />}>
 					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<MSDashboard />} />
 					<Route path='profile' element={<MSProfile />} />

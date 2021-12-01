@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import doctorImg from '../../../assets/images/doctors-5.jpg';
 import { CustomButton } from '../../../components';
 import Input from '../../../components/Input/Input';
-import { setAuth } from '../../../redux/features/authSlice/authSlice';
+import {
+	loginUser,
+	setAuth,
+} from '../../../redux/features/authSlice/authSlice';
 import './Login.scss';
 
 const Login = () => {
@@ -13,13 +16,20 @@ const Login = () => {
 
 	const dispatch = useDispatch();
 
+	const handleLogin = useCallback(() => {
+		dispatch(loginUser({ email: emailInput, password: passwordInput }));
+	}, [emailInput, passwordInput]);
+
 	const { isAuthed, role } = useSelector(({ auth }) => auth);
-	if (isAuthed)
-		return role === 'housekeeper' ? (
+
+	// This checks if the user is authenticated.
+	if (isAuthed) {
+		return role === 'hsm' ? (
 			<Navigate to='/h/dashboard' />
 		) : (
 			<Navigate to='/m/dashboard' />
 		);
+	}
 
 	return (
 		<div className='login-wrapper'>
@@ -49,15 +59,8 @@ const Login = () => {
 				<div className='actions'>
 					<CustomButton
 						type='primary'
-						text='Login MSM'
-						onClick={() => dispatch(setAuth({ auth: true, role: 'medical' }))}
-					/>
-					<CustomButton
-						type='primary'
-						text='Login HSM'
-						onClick={() =>
-							dispatch(setAuth({ auth: true, role: 'housekeeper' }))
-						}
+						text='Login'
+						onClick={() => handleLogin()}
 					/>
 				</div>
 			</div>
