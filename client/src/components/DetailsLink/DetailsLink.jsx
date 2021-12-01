@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import './DetailsLink.scss';
 
-const DetailsLink = ({ path }) => {
+const DetailsLink = ({ path, state = '' }) => {
 	return (
-		<Link to={path} className='details-link'>
+		<Link to={path} state={state} className='details-link'>
 			Details
 		</Link>
 	);

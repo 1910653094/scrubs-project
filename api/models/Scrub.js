@@ -22,6 +22,16 @@ class Scrub {
     []
   );
 
+  getAllOverdueScrubs = async () => query(
+      'Get * overdue scrubs',
+      'SELECT email, "name", return_date, description, count(id_scrub_type) FROM scrub ' +
+      'JOIN employee USING(id_employee) ' +
+      'JOIN scrub_type USING(id_scrub_type) ' +
+      'WHERE borrowed IS TRUE AND return_date < NOW() AND id_scrub NOT IN ( SELECT id_scrub FROM report ) ' +
+      'GROUP BY id_scrub_type, email, "name", return_date, description',
+      []
+  );
+
   // function to get all scrubs that are overdue (filtered by one employee)
   getAllOverdueScrubsByEmployee = async () => await query(
     'Get * overdue scrubs by distinct employee',

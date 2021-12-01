@@ -72,5 +72,9 @@
 			gap: 2rem;
 			justify-content: center;
 		}
+		.error-message {
+			color: c.$generic-red;
+			font-weight: bold;
+		}
 	}
 }
