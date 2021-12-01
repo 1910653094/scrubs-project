@@ -21,10 +21,7 @@ router.get('/', [
 
 router.get('/all', async (req, res, next) => {
     let resObj = await new Employee().getAllEmployees();
-    resObj.response.map(e => {
-        delete e.id_employee;
-        delete e.password;
-    });
+    resObj.response.map(e => delete e.password);
     return res.status(resObj.status).json(resObj.response);
 });
 

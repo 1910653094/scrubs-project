@@ -18,6 +18,8 @@ import {
 } from "./pages";
 import { ProtectedRoute } from "./components";
 import "./App.scss";
+import HSStaffDetails from "./pages/Housekeeping/HSStaff/HSStaffDetails";
+import HSStaffDetailsBorrowing from "./pages/Housekeeping/HSStaff/HSStaffDetailsBorrowing";
 
 function App() {
   return (
@@ -30,7 +32,9 @@ function App() {
         <Route path="h" element={<ProtectedRoute permission="housekeeper" />}>
           <Route path="" element={<Navigate to="dashboard" />} />
           <Route path="dashboard" element={<HSDashboard />} />
-          <Route path="staff" element={<HSStaff />} />
+          <Route path="staff" element={<HSStaff/>} />
+          <Route path="staff/details" element={<HSStaffDetails/>} />
+          <Route path="staff/details/borrowing" element={<HSStaffDetailsBorrowing/>} />
           <Route path="rooms" element={<HSRooms />} />
           <Route path="reports" element={<HSReports />} />
           <Route path="profile" element={<HSProfile />} />

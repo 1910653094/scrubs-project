@@ -77,7 +77,7 @@ class Employee {
         }
 
         const subject = 'Your account';
-        const text = `Your account has been created:\nUsername: ${this.email}\nPassword: ${randPassword}`;
+        const text = `Your account has been created:\n\tPassword: ${randPassword}`;
 
         const email = new EmailSender(this.email, subject, text);
         email.setUp();
