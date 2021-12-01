@@ -1,51 +1,59 @@
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
-  Login,
-  HSDashboard,
-  MSDashboard,
-  AccessDenied,
-  NotFound,
-  MSProfile,
-  HSStaff,
-  HSProfile,
-  HSRooms,
-  HSReports,
-} from "./pages";
-import { ProtectedRoute } from "./components";
-import "./App.scss";
-import HSStaffDetails from "./pages/Housekeeping/HSStaff/HSStaffDetails";
-import HSStaffDetailsBorrowing from "./pages/Housekeeping/HSStaff/HSStaffDetailsBorrowing";
+	Login,
+	HSDashboard,
+	MSDashboard,
+	AccessDenied,
+	NotFound,
+	MSProfile,
+	HSStaff,
+	HSProfile,
+	HSRooms,
+	HSReports,
+	Logout,
+} from './pages';
+import { ProtectedRoute } from './components';
+import './App.scss';
+import { verifyUserInStorage } from './redux/features/authSlice/authSlice';
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="login" element={<Login />} />
-        <Route path="denied" element={<AccessDenied />} />
+const App = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(verifyUserInStorage());
+	}, []);
 
-        <Route path="h" element={<ProtectedRoute permission="housekeeper" />}>
-          <Route path="" element={<Navigate to="dashboard" />} />
-          <Route path="dashboard" element={<HSDashboard />} />
-          <Route path="staff" element={<HSStaff/>} />
-          <Route path="staff/details" element={<HSStaffDetails/>} />
-          <Route path="staff/details/borrowing" element={<HSStaffDetailsBorrowing/>} />
-          <Route path="rooms" element={<HSRooms />} />
-          <Route path="reports" element={<HSReports />} />
-          <Route path="profile" element={<HSProfile />} />
-        </Route>
+	return (
+		<Router>
+			<Routes>
+				<Route path='/' element={<Navigate to='/login' />} />
+				<Route path='login' element={<Login />} />
 
-        <Route path="m" element={<ProtectedRoute permission="medical" />}>
-          <Route path="" element={<Navigate to="dashboard" />} />
-          <Route path="dashboard" element={<MSDashboard />} /> // change to
-          MSDashboard
-          <Route path="profile" element={<MSProfile />} />
-        </Route>
+				<Route path='logout' element={<Logout />} />
+				<Route path='denied' element={<AccessDenied />} />
+
+				<Route exact path='h' element={<ProtectedRoute permission='hsm' />}>
+					<Route path='' element={<Navigate to='dashboard' />} />
+					<Route path='dashboard' element={<HSDashboard />} />
+					<Route path='staff' element={<HSStaff />} />
+                    <Route path='staff/details' element={<HSStaffDetails/>} />
+                    <Route path='staff/details/borrowing' element={<HSStaffDetailsBorrowing/>} />
+					<Route path='rooms' element={<HSRooms />} />
+					<Route path='reports' element={<HSReports />} />
+					<Route path='profile' element={<HSProfile />} />
+				</Route>
+
+				<Route exact path='m' element={<ProtectedRoute permission='msm' />}>
+					<Route path='' element={<Navigate to='dashboard' />} />
+					<Route path='dashboard' element={<MSDashboard />} />
+					<Route path='profile' element={<MSProfile />} />
+				</Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
