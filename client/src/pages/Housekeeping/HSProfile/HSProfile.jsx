@@ -11,6 +11,7 @@ const HSProfile = () => {
 	const dispatch = useDispatch();
 
 	const { data, isLoading, error } = useSelector(({ profile }) => profile);
+
 	useEffect(() => {
 		dispatch(getProfile());
 		return () => {

@@ -46,7 +46,13 @@ const profileSlice = createSlice({
 	},
 	reducers: {
 		cleanProfileData: (state, payload) => {
-			state.data = undefined;
+			state.data = {
+				name: undefined,
+				email: undefined,
+				gender: undefined,
+				hospital: undefined,
+				profession: undefined,
+			};
 		},
 	},
 	extraReducers: {
