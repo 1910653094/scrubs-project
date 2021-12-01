@@ -18,6 +18,8 @@ import {
 	HSRooms,
 	HSReports,
 	Logout,
+	HSStaffDetails,
+	HSStaffDetailsBorrowing,
 } from './pages';
 import { ProtectedRoute } from './components';
 import './App.scss';
@@ -42,8 +44,11 @@ const App = () => {
 					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<HSDashboard />} />
 					<Route path='staff' element={<HSStaff />} />
-                    <Route path='staff/details' element={<HSStaffDetails/>} />
-                    <Route path='staff/details/borrowing' element={<HSStaffDetailsBorrowing/>} />
+					<Route path='staff/details' element={<HSStaffDetails />} />
+					<Route
+						path='staff/details/borrowing'
+						element={<HSStaffDetailsBorrowing />}
+					/>
 					<Route path='rooms' element={<HSRooms />} />
 					<Route path='reports' element={<HSReports />} />
 					<Route path='profile' element={<HSProfile />} />
@@ -55,10 +60,10 @@ const App = () => {
 					<Route path='profile' element={<MSProfile />} />
 				</Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
-  );
-}
+				<Route path='*' element={<NotFound />} />
+			</Routes>
+		</Router>
+	);
+};
 
 export default App;
