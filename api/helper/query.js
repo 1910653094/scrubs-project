@@ -8,7 +8,10 @@ const query = async (name, sql, v) => {
         values: v
     });
 
-    let res;
+    let res = {
+        status: 500,
+        response: "Internal Error"
+    };
     await db.any(stmt)
         .then(data => {
             res = {

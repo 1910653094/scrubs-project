@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', [
     query('id').isInt(),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -19,7 +19,7 @@ router.get('/', [
     return res.status(resObj.status).json(resObj.response);
 });
 
-router.get('/all', async (req, res, next) => {
+router.get('/all', async (req, res) => {
     let resObj = await new Employee().getAllEmployees();
     resObj.response.map(e => delete e.password);
     return res.status(resObj.status).json(resObj.response);
@@ -27,7 +27,7 @@ router.get('/all', async (req, res, next) => {
 
 router.get('/withBorrowings', [
     query('id').isInt(),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -48,7 +48,7 @@ router.post('/', [
         .not().isEmpty(),
     body('gender')
         .not().isEmpty()
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -69,7 +69,7 @@ router.post('/login', [
         .normalizeEmail(),
     body('password')
         .not().isEmpty(),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -92,7 +92,7 @@ router.put('/preferences', [
         .not().isEmpty(),
     body('id_employee')
         .isInt({ min: 1 })
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
