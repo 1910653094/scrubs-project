@@ -2,6 +2,7 @@
 
 const bcrypt = require("bcrypt");
 const query = require("../helper/query");
+const EmailSender = require("../helper/EmailSender");
 
 class Employee {
     constructor(id, email, password, name, profession, gender, shoe_size_preference, top_size_preference, bottom_size_preference) {
@@ -57,12 +58,32 @@ class Employee {
     };
 
     insertEmployee = async () => {
-        const password = bcrypt.hashSync(this.password, 10);
-        return await query(
+        const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const pwdLen = 16;
+        const randPassword = Array(pwdLen)
+            .fill(pwdChars)
+            .map(x => x[Math.floor(Math.random() * x.length)])
+            .join('');
+
+        const password = bcrypt.hashSync(randPassword, 10);
+        const resObj = await query(
             'Insert employee',
             'INSERT INTO employee (email, password, "name", profession, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [this.email, password, this.name, this.profession, this.gender]
         );
+
+        if (resObj !== 200) {
+            return resObj;
+        }
+
+        const subject = 'Your account';
+        const text = `Your account has been created:\n\tPassword: ${randPassword}`;
+
+        const email = new EmailSender(this.email, subject, text);
+        email.setUp();
+        email.send();
+
+        return resObj;
     };
 
     updatePreferences = async () => {
