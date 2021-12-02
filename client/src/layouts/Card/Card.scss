@@ -22,4 +22,9 @@
 		position: relative;
 		overflow: scroll;
 	}
+
+	.flex {
+		display: flex;
+		justify-content: space-between;
+	}
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './DetailedInformation.scss';
 
-const DetailedInformtaion = ({ title, items }) => {
+const DetailedInformation = ({ title, items }) => {
 	return (
 		<div className='detailed-information'>
 			{title && <h3 className='title'>{title}</h3>}
@@ -20,4 +20,4 @@ const DetailedInformtaion = ({ title, items }) => {
 	);
 };
 
-export default DetailedInformtaion;
+export default DetailedInformation;

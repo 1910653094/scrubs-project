@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const HSStaffDetails = () => {
-	const [borrowings, setBorrowings] = useState([]);
+	const [ borrowings, setBorrowings ] = useState([]);
 
 	const location = useLocation();
 	const { employee } = location.state;
@@ -67,7 +67,6 @@ const HSStaffDetails = () => {
 				.then((res) => res.json())
 				.then(
 					(res) => {
-						console.log(res);
 						res.map((r) => {
 							const return_date = new Date(r.return_by.split('T')[0]);
 							let status = r.completely_returned ? 'Returned' : 'Borrowing';
@@ -89,7 +88,7 @@ const HSStaffDetails = () => {
 									action: (
 										<DetailsLink
 											path='/h/staff/details/borrowing'
-											state={{ borrowing: r }}
+											state={{ borrowing: r, status: status, name: employee.name }}
 										/>
 									),
 								},
@@ -105,7 +104,7 @@ const HSStaffDetails = () => {
 
 	return (
 		<PageWrapper>
-			<h2>Staff Members {employee.name}</h2>
+			<h2>Staff Members > {employee.name}</h2>
 			<Card title=''>
 				<CustomTable rows={borrowings} columns={headers} />
 			</Card>
