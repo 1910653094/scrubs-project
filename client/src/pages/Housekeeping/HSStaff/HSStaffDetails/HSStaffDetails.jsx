@@ -1,5 +1,5 @@
-import { CustomTable, DetailsLink } from '../../../components';
-import { PageWrapper, Card } from '../../../layouts';
+import { CustomTable, DetailsLink } from '../../../../components';
+import { PageWrapper, Card } from '../../../../layouts';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -8,7 +8,6 @@ const HSStaffDetails = () => {
 
 	const location = useLocation();
 	const { employee } = location.state;
-	console.log(employee);
 
 	const headers = [
 		{
@@ -67,16 +66,7 @@ const HSStaffDetails = () => {
 			fetching()
 				.then((res) => res.json())
 				.then(res => {
-						console.log(res);
 						res.map((r) => {
-							/*const return_date = new Date(r.return_by.split('T')[0]);
-							let status = r.completely_returned ? 'Returned' : 'Borrowing';
-
-							if (return_date < new Date()) {
-								status = 'Overdue';
-							}
-*/
-							console.log(r);
 							setBorrowings((prev) => [
 								...prev,
 								{

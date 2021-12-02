@@ -1,19 +1,14 @@
-import { PageWrapper, Card } from '../../../layouts';
+import { PageWrapper, Card } from '../../../../layouts';
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import DetailedInformation from "../../../components/DetailedInformation/DetailedInformation";
-import { CustomButton } from "../../../components";
-import doctorImg from '../../../assets/images/doctors-5.jpg';
+import DetailedInformation from "../../../../components/DetailedInformation/DetailedInformation";
+import { CustomButton } from "../../../../components";
+import doctorImg from '../../../../assets/images/doctors-5.jpg';
 import './HSStaffDetailsBorrowing.scss';
 
 const HSStaffDetailsBorrowing = () => {
 	const location = useLocation();
 	const { borrowing } = location.state;
-
-	/*const toLocaleDate = dateString => {
-		const splitted = dateString.split(' ');
-		return new Date(splitted[0]).toLocaleDateString();
-	};*/
 
 	return (
 		<PageWrapper>

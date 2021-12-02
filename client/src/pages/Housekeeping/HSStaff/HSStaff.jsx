@@ -1,4 +1,9 @@
-import { CustomTable, DetailsLink, Spinner } from '../../../components';
+import {
+	CustomButton,
+	CustomTable,
+	DetailsLink,
+	Spinner,
+} from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
 import NewMember from '../../../components/NewMember/NewMember';
 import React, { useEffect } from 'react';
@@ -7,6 +12,7 @@ import {
 	cleanEmployees,
 	getEmployees,
 } from '../../../redux/features/employees/employeesSlice';
+import './HSStaff.scss';
 
 const HSStaff = () => {
 	const dispatch = useDispatch();
@@ -43,10 +49,16 @@ const HSStaff = () => {
 		},
 	];
 
+	const handleClick = () => {
+		console.log('hi');
+	};
+
 	return (
 		<PageWrapper>
-			<h2>Staff Members</h2>
-			<NewMember />
+			<div className='header-container'>
+				<h2>Staff Members</h2>
+				<NewMember />
+			</div>
 			<Card title=''>
 				{isLoading ? (
 					<Spinner />
