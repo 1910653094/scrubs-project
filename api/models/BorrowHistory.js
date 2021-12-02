@@ -3,12 +3,15 @@
 const query = require("../helper/query");
 
 class BorrowHistory {
-    constructor(id_history, quantity, borrowed_date, return_by, completely_returned) {
+    constructor(id_history, quantity, borrowed_date, return_by, completely_returned, id_employee, id_given_by, id_room) {
         this.id_history = id_history;
         this.quantity = quantity;
         this.borrowed_date = borrowed_date;
         this.return_by = return_by;
         this.completely_returned = completely_returned;
+        this.id_employee = id_employee;
+        this.id_given_by = id_given_by;
+        this.id_room = id_room;
     };
 
     getAllBorrowHistory = async () => await query(
@@ -26,7 +29,7 @@ class BorrowHistory {
         'JOIN scrub USING(id_scrub) ' +
         'JOIN scrub_type USING(id_scrub_type)' +
         'JOIN employee giver ON giver.id_employee = id_given_by ' +
-        'WHERE scrub.id_employee = $1 ' +
+        'WHERE bh.id_employee = $1 ' +
         'GROUP BY id_history, quantity, bh.borrowed_date, return_by, completely_returned, ' +
             'description, size, color, scrub_type.gender, name',
         [id]
@@ -34,8 +37,9 @@ class BorrowHistory {
 
     insertBorrowHistory = async () => await query(
         "Insert new borrowed history",
-        'INSERT INTO borrow_history (quantity, borrowed_date, return_by, completely_returned) VALUES ($1, $2, $3, FALSE) RETURNING *',
-        [this.quantity, this.borrowed_date, this.return_by]
+        'INSERT INTO borrow_history (quantity, borrowed_date, return_by, completely_returned, id_employee, id_given_by, id_room) ' +
+        'VALUES ($1, $2, $3, FALSE, $4, $5, $6) RETURNING *',
+        [this.quantity, this.borrowed_date, this.return_by, this.id_employee, this.id_given_by, this.id_room]
     );
 }
 
