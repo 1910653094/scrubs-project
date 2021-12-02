@@ -9,7 +9,7 @@ const DetailedInformtaion = ({ title, items }) => {
 				{items &&
 					items.map(({ attr, val }) => {
 						return (
-							<li className='item'>
+							<li className='item' key={attr}>
 								<div className='attribute'>{attr}</div>
 								<div className='value'>{val}</div>
 							</li>
