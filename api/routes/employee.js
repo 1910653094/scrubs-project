@@ -56,7 +56,10 @@ router.post('/', [
     }
 
     const obj = req.body;
-    let resObj = await new Employee(null, obj.email, null, obj.name, obj.profession, obj.gender).insertEmployee();
+    let resObj = await new Employee(
+        null, obj.email, null, obj.name, obj.profession, obj.gender,
+        obj.shoe_preference, obj.top_preference, obj.bottom_preference, obj.gloves_preference
+    ).insertEmployee();
     return res.status(resObj.status).json(resObj.response);
 });
 
@@ -79,11 +82,13 @@ router.post('/login', [
 });
 
 router.put('/preferences', [
-    body('shoe_size_preference')
+    body('shoe_preference')
         .isInt({ min: 1 }),
-    body('top_size_preference')
+    body('top_preference')
         .not().isEmpty(),
-    body('bottom_size_preference')
+    body('bottom_preference')
+        .not().isEmpty(),
+    body('gloves_preference')
         .not().isEmpty(),
     body('id_employee')
         .isInt({ min: 1 })
@@ -95,7 +100,10 @@ router.put('/preferences', [
     }
 
     let obj = req.body;
-    let resObj = await new Employee(obj.id_employee, null, null, null, null, null, obj.shoe_size_preference, obj.top_size_preference, obj.bottom_size_preference).updatePreferences();
+    let resObj = await new Employee(
+        obj.id_employee, null, null, null, null, null,
+        obj.shoe_preference, obj.top_preference, obj.bottom_preference, obj.gloves_preference,
+    ).updatePreferences();
     return res.status(resObj.status).json(resObj.response);
 });
 

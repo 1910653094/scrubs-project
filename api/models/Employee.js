@@ -5,16 +5,17 @@ const query = require("../helper/query");
 const EmailSender = require("../helper/EmailSender");
 
 class Employee {
-    constructor(id, email, password, name, profession, gender, shoe_size_preference, top_size_preference, bottom_size_preference) {
+    constructor(id, email, password, name, profession, gender, shoe_preference, top_preference, bottom_preference, gloves_preference) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.profession = profession;
         this.gender = gender;
-        this.shoe_size_preference = shoe_size_preference;
-        this.top_size_preference = top_size_preference;
-        this.bottom_size_preference = bottom_size_preference;
+        this.shoe_preference = shoe_preference;
+        this.top_preference = top_preference;
+        this.bottom_preference = bottom_preference;
+        this.gloves_preference = gloves_preference;
     };
 
     getAllEmployees = async () => await query(
@@ -25,7 +26,7 @@ class Employee {
 
     getEmployee = async () => await query(
         'Get specified employee',
-        'SELECT name, email, profession, gender, shoe_size_preference, top_size_preference, bottom_size_preference FROM employee WHERE id_employee = $1',
+        'SELECT name, email, profession, gender, shoe_preference, top_preference, bottom_preference, gloves_preference FROM employee WHERE id_employee = $1',
         [this.id]
     );
 
@@ -35,7 +36,7 @@ class Employee {
 
         let res = await query(
             'Get * borrowings from distinct employee',
-            'SELECT description, "size", color, quantity, borrowed_date, return_date, returned FROM borrow_history ' +
+            'SELECT description, "size", color, quantity, borrowed_date, return_date, completely_returned FROM borrow_history ' +
             'JOIN scrub_type USING(id_scrub_type) WHERE id_employee = $1',
             [this.id]
         );
@@ -45,10 +46,10 @@ class Employee {
         delete employee.password;
         employee.borrowings = res.response.map(borrow => {
             const today = new Date();
-            if (!borrow.returned && today > borrow.return_date) borrow.status = 'Overdue';
-            else if (!borrow.returned) borrow.status = 'Borrowing';
+            if (!borrow.completely_returned && today > borrow.return_date) borrow.status = 'Overdue';
+            else if (!borrow.completely_returned) borrow.status = 'Borrowing';
             else borrow.status = 'Returned';
-            delete borrow.returned;
+            delete borrow.completely_returned;
         });
 
         return {
@@ -68,8 +69,9 @@ class Employee {
         const password = bcrypt.hashSync(randPassword, 10);
         const resObj = await query(
             'Insert employee',
-            'INSERT INTO employee (email, password, "name", profession, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [this.email, password, this.name, this.profession, this.gender]
+            'INSERT INTO employee (email, password, "name", profession, gender, shoe_preference, top_preference, bottom_preference, gloves_preference) ' +
+            'VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9) RETURNING *',
+            [this.email, password, this.name, this.profession, this.gender, this.shoe_preference, this.top_preference, this.bottom_preference, this.gloves_preference]
         );
 
         if (resObj !== 200) {
@@ -89,8 +91,8 @@ class Employee {
     updatePreferences = async () => {
         return await query(
             'Update preferences',
-            `UPDATE public.employee SET shoe_size_preference = $1, top_size_preference = $2, bottom_size_preference = $3 WHERE id_employee = $4`,
-            [this.shoe_size_preference, this.top_size_preference, this.bottom_size_preference, this.id]
+            `UPDATE employee SET shoe_preference = $1, top_preference = $2, bottom_preference = $3, gloves_preference = $4 WHERE id_employee = $5`,
+            [this.shoe_preference, this.top_preference, this.bottom_preference, this.gloves_preference, this.id]
         );
     };
 
