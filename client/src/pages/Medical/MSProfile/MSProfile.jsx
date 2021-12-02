@@ -64,10 +64,10 @@ const MSProfile = () => {
             <div className="return-items-subcontainer">
               <Input type="number" maxWidth="3.5rem" />
               <CustomButton
-                type="primary"
-                text="return items"
-                fontSize="16px"
-              ></CustomButton>
+                  type="primary"
+                  text="return items"
+                  fontSize="16px"
+              />
             </div>
           </div>
         </div>

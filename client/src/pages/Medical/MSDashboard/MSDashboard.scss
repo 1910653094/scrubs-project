@@ -31,7 +31,8 @@
       align-items: center;
       height: 5rem;
     }
-    .ms-table {
+    .ms-table > div {
+      width: inherit !important;
     }
   }
 }

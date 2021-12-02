@@ -4,9 +4,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import './RadioButtons.scss'
+import './RadioButtons.scss';
 
-function TabPanel(props) {
+/*const TabPanel = props => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -24,26 +24,27 @@ function TabPanel(props) {
       )}
     </div>
   );
-}
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
+};*/
+
+const a11yProps = index => {
+    return {
+        id: `simple-tab-${index}`,
+            'aria-controls': `simple-tabpanel-${index}`,
+    };
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-export default function RadioButtons() {
+const RadioButtons = ({ onValueChange }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    onValueChange(newValue);
   };
 
   return (
@@ -55,15 +56,17 @@ export default function RadioButtons() {
           <Tab className="tab" label="Returned" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        Overdue
+      {/*<TabPanel value={value} index={0}>
+          {children}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Borrowing
+          {children}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Returned
-      </TabPanel>
+          {children}
+      </TabPanel>*/}
     </Box>
   );
-}
+};
+
+export default RadioButtons;

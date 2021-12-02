@@ -1,13 +1,16 @@
-import { CustomTable, DetailsLink } from '../../../../components';
+import { CustomButton, CustomTable, DetailsLink } from '../../../../components';
 import { PageWrapper, Card } from '../../../../layouts';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import DetailedInformation from "../../../../components/DetailedInformation/DetailedInformation";
+import './HSStaffDetails.scss';
 
 const HSStaffDetails = () => {
 	const [ borrowings, setBorrowings ] = useState([]);
 
 	const location = useLocation();
 	const { employee } = location.state;
+	console.log(employee);
 
 	const headers = [
 		{
@@ -98,6 +101,18 @@ const HSStaffDetails = () => {
 		<PageWrapper>
 			<h2>Staff Members > {employee.name}</h2>
 			<Card title=''>
+				<div className="staff-details-header-container">
+					<DetailedInformation
+						title="General Information"
+						items={[
+							{ attr: 'Full Name', val: employee.name },
+							{ attr: 'Email', val: employee.email },
+							{ attr: 'Profession', val: employee.profession },
+							{ attr: 'Gender', val: employee.gender }
+						]}
+					/>
+					<CustomButton type="primary" text="Manage Member" />
+				</div>
 				<CustomTable rows={borrowings} columns={headers} />
 			</Card>
 		</PageWrapper>
