@@ -4,13 +4,19 @@ export const getBorrowings = createAsyncThunk(
 	'borrowings/getBorrowings',
 	async (id, thunkAPI) => {
 		try {
-			const response = await fetch('http://localhost:9000/employee/all', {
-				method: 'GET',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(
+				'http://localhost:9000/history/fromEmployee?' +
+					new URLSearchParams({
+						id: id,
+					}),
+				{
+					method: 'GET',
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+				}
+			);
 			let data = await response.json();
 
 			if (response.status === 200) {
