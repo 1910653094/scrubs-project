@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import RadioButtons from '../../../components/DashboardComponents/RadioButtons';
-import { CustomTable, DetailsLink } from '../../../components';
+import { CustomTable, DetailsLink, Spinner } from '../../../components';
 import MSPageWrapper from '../../../layouts/MSPageWrapper/MSPageWrapper';
 import './MSDashboard.scss';
 import { ReactComponent as ArrowRight } from '../../../assets/icons/Arrow-Right.svg';
 import ActionLink from '../../../components/ActionLink/ActionLink';
+import {
+	cleanBorrowings,
+	getBorrowings,
+} from '../../../redux/features/borrowings/borrowingsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 const MSDashboard = () => {
 	const [viewOption, setViewOption] = useState('borrowed');
 	const headers = [
@@ -24,30 +29,20 @@ const MSDashboard = () => {
 			align: 'right',
 		},
 	];
-	const data = [
-		{
-			type: 'Gloves',
-			items: 10,
-			action: <ActionLink path='/m/dashboard' arrow={<ArrowRight />} />,
-		},
-		{
-			type: 'Gloves',
-			items: 10,
-			action: <ActionLink path='/m/dashboard' arrow={<ArrowRight />} />,
-		},
-		{
-			type: 'Gloves',
-			items: 10,
-			action: <ActionLink path='/m/dashboard' arrow={<ArrowRight />} />,
-		},
-		{
-			type: 'Gloves',
-			items: 10,
-			action: <ActionLink path='/m/dashboard' arrow={<ArrowRight />} />,
-		},
-	];
 
-	console.log(viewOption);
+	const dispatch = useDispatch();
+	const { isLoading, data, error } = useSelector(
+		({ borrowings }) => borrowings
+	);
+
+	console.log(data);
+	useEffect(() => {
+		dispatch(getBorrowings(localStorage.getItem('userId')));
+		return () => {
+			dispatch(cleanBorrowings());
+		};
+	}, []);
+
 	return (
 		<MSPageWrapper>
 			<div className='ms-your-borrowings'>
@@ -56,10 +51,29 @@ const MSDashboard = () => {
 					<div className='banner'>
 						<RadioButtons returnValue={setViewOption} />
 					</div>
-
 					<div className='ms-table'>
-						{data.length >= 1 ? (
-							<CustomTable columns={headers} rows={data} />
+						{isLoading ? (
+							<Spinner />
+						) : data.filter((r) => r.status == viewOption).length >= 1 ? (
+							<CustomTable
+								columns={headers}
+								rows={data
+									.filter((r) => r.status == viewOption)
+									.map((r) => {
+										return {
+											type: r.type,
+											items: r.amount,
+											action: (
+												<DetailsLink
+													path='/h/dashboard/borrowing'
+													state={{ borrowing: r }}
+												>
+													<ArrowRight />
+												</DetailsLink>
+											),
+										};
+									})}
+							/>
 						) : (
 							<div>No data available</div>
 						)}
