@@ -87,6 +87,7 @@ const CustomTable = ({ columns, rows }) => {
 														background: '#FAFCFE',
 														padding: '0.5rem 1rem',
 														fontFamily: 'Barlow',
+														textTransform: 'capitalize',
 													}}
 												>
 													{value}

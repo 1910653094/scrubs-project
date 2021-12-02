@@ -1,80 +1,80 @@
-@use "../../../sass/variables" as c;
+@use '../../../sass/variables' as c;
 
 .ms-scrubs-details {
-  position: absolute;
-  inset: 0 0 0 0;
-  display: flex;
-  gap: 50px;
-  flex-direction: column;
-  padding: 1rem;
-  background-color: c.$blue-light-4;
-  height: 100%;
+	position: absolute;
+	inset: 0 0 0 0;
+	display: flex;
+	gap: 50px;
+	flex-direction: column;
+	padding: 1rem;
+	background-color: c.$blue-light-4;
+	height: 100%;
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 1.25rem;
-    .action-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      .go-back-container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        .arrow-left {
-          fill: c.$blue-dark-1;
-        }
-        .back-text {
-          margin-left: 1rem;
-          font-family: Barlow;
-          font-style: normal;
-          font-weight: bold;
-          font-size: 24px;
-          line-height: 100%;
-          letter-spacing: 0.01em;
-        }
-      }
-      .report-item-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
+	.container {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		gap: 1.25rem;
+		.action-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			.go-back-container {
+				display: flex;
+				flex-direction: row;
+				align-items: flex-start;
+				.arrow-left {
+					fill: c.$blue-dark-1;
+				}
+				.back-text {
+					margin-left: 1rem;
+					font-family: Barlow;
+					font-style: normal;
+					font-weight: bold;
+					font-size: 24px;
+					line-height: 100%;
+					letter-spacing: 0.01em;
+				}
+			}
+			.report-item-container {
+				display: flex;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
 
-        .report-icon {
-          fill: c.$generic-red;
-        }
-      }
-    }
-    .detailed-info-container {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      flex: 1;
-    }
-    .return-items-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-      .item-return-text {
-        font-family: Barlow;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 19px;
-        color: c.$blue-base;
-      }
-      .return-items-subcontainer {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-      }
-    }
-  }
+				.report-icon {
+					fill: c.$generic-red;
+				}
+			}
+		}
+		.detailed-info-container {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+			flex: 1;
+		}
+		.return-items-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 1.5rem;
+			.item-return-text {
+				font-family: Barlow;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 19px;
+				color: c.$blue-base;
+			}
+			.return-items-subcontainer {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+			}
+		}
+	}
 }

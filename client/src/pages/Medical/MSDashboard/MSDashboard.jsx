@@ -4,14 +4,14 @@ import { CustomTable, DetailsLink, Spinner } from '../../../components';
 import MSPageWrapper from '../../../layouts/MSPageWrapper/MSPageWrapper';
 import './MSDashboard.scss';
 import { ReactComponent as ArrowRight } from '../../../assets/icons/Arrow-Right.svg';
-import ActionLink from '../../../components/ActionLink/ActionLink';
 import {
 	cleanBorrowings,
 	getBorrowings,
 } from '../../../redux/features/borrowings/borrowingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+
 const MSDashboard = () => {
-	const [viewOption, setViewOption] = useState('borrowed');
+	const [viewOption, setViewOption] = useState('overdue');
 	const headers = [
 		{
 			id: 'type',
@@ -35,7 +35,6 @@ const MSDashboard = () => {
 		({ borrowings }) => borrowings
 	);
 
-	console.log(data);
 	useEffect(() => {
 		dispatch(getBorrowings(localStorage.getItem('userId')));
 		return () => {
@@ -47,7 +46,7 @@ const MSDashboard = () => {
 		<MSPageWrapper>
 			<div className='ms-your-borrowings'>
 				<div className='container'>
-					<div className='title'>Your Borrowings</div>
+					<div className='dh-title'>Your Borrowings</div>
 					<div className='banner'>
 						<RadioButtons returnValue={setViewOption} />
 					</div>
@@ -65,7 +64,7 @@ const MSDashboard = () => {
 											items: r.amount,
 											action: (
 												<DetailsLink
-													path='/h/dashboard/borrowing'
+													path='/m/dashboard/borrowing'
 													state={{ borrowing: r }}
 												>
 													<ArrowRight />
