@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import '../DashboardComponents/ScrubActions.scss';
 import { useState, useCallback } from 'react';
+import DateSelect from '../Inputs/DateSelect';
+import { CustomButton } from '..';
 
 const scrubTypes = [
   {
@@ -104,11 +106,6 @@ function ScrubsToStaffMember() {
   const [color, setColor] = useState("");
   const [amount, setAmount] = useState("");
   const [returnDate, setReturnDate] = useState("");
-
-
-
-
-  //Popover
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -117,6 +114,15 @@ function ScrubsToStaffMember() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleAddItems = () => {
+    //TODO
+    setScrubType('');
+    setSize('');
+    setColor('');
+    setAmount('');
+    setReturnDate('');
   };
 
   const handleGive = useCallback(() => {
@@ -229,7 +235,9 @@ function ScrubsToStaffMember() {
                 </MenuItem>
               ))}
             </TextField>
-            <TextField id="outlined-basic" label="Amount" variant="outlined" style={{ width: '14ch' }} />
+            <TextField id="outlined-basic" label="Amount" variant="outlined" style={{ width: '14ch' }} value={amount} onChange={(e) => { setAmount(e.target.value) }} />
+            //<DateSelect value={returnDate} onChange={(e) => { setReturnDate(e.target.value) }} /> TODO
+            <CustomButton text="ADD NEW ITEMS" type="primary" fontSize="12px" onClick={handleAddItems} />
           </Box>
         </DialogContent>
         <DialogActions>
