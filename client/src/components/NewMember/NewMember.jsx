@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import '../DashboardComponents/ScrubActions.scss';
 import { CustomButton } from '..';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const professions = [
   {
@@ -53,41 +53,31 @@ const NewMember = () => {
     setOpen(false);
   };
 
-  const handleRegister = () => {
-    setOpen(false);
+  const handleRegister = useCallback(() => {
 
-    console.log(emailValue);
-    console.log(nameValue);
-    console.log(professionValue);
-    console.log(genderValue);
+    if (emailValue == '' || nameValue == '' || professionValue == '' || genderValue == '') {
+      console.log("you must fill all the fields");
+      //TODO Do we have a component to display that?
+    } else {
+      setOpen(false);
 
-    // TODO : CALL API & "regex"
+      console.log(emailValue);
+      console.log(nameValue);
+      console.log(professionValue);
+      console.log(genderValue);
+
+      // TODO : CALL API
 
 
 
 
-    // RESET VALUE
-    setEmailValue('');
-    setNameValue('');
-    setProfessionValue('');
-    setGenderValue('');
-  }
-
-  const handleEmailChange = e => {
-    setEmailValue(e.target.value);
-  };
-
-  const handleNameChange = e => {
-    setNameValue(e.target.value);
-  };
-
-  const handleProfessionChange = e => {
-    setProfessionValue(e.target.value);
-  };
-
-  const handleGenderChange = e => {
-    setGenderValue(e.target.value);
-  };
+      // RESET VALUE
+      setEmailValue('');
+      setNameValue('');
+      setProfessionValue('');
+      setGenderValue('');
+    }
+  }, [emailValue, nameValue, professionValue, genderValue])
 
 
   return (
@@ -106,15 +96,15 @@ const NewMember = () => {
             noValidate
             autoComplete="off"
           >
-            <TextField id="outlined-basic" label="Enter their email" variant="outlined" style={{ width: '97%' }} value={emailValue} onChange={handleEmailChange} />
+            <TextField id="outlined-basic" label="Enter their email" variant="outlined" style={{ width: '97%' }} value={emailValue} onChange={(e) => { setEmailValue(e.target.value) }} />
             <Divider style={{ marginTop: 15, marginBottom: 15 }} />
-            <TextField id="outlined-basic" label="Enter their name" variant="outlined" style={{ width: '40%' }} value={nameValue} onChange={handleNameChange} />
+            <TextField id="outlined-basic" label="Enter their name" variant="outlined" style={{ width: '40%' }} value={nameValue} onChange={(e) => { setNameValue(e.target.value) }} />
 
             <TextField
               id="outlined-select-type"
               select
               label="Select Profession"
-              style={{ width: '13ch' }} value={professionValue} onChange={handleProfessionChange}
+              style={{ width: '13ch' }} value={professionValue} onChange={(e) => { setProfessionValue(e.target.value) }}
             >
               {professions.map((element) => (
                 <MenuItem key={element.label} value={element.value}>
@@ -126,7 +116,7 @@ const NewMember = () => {
               id="outlined-select-genders"
               select
               label="Select Gender"
-              style={{ width: '13ch' }} value={genderValue} onChange={handleGenderChange}
+              style={{ width: '13ch' }} value={genderValue} onChange={(e) => { setGenderValue(e.target.value) }}
             >
               {genders.map((element) => (
                 <MenuItem key={element.label} value={element.value}>
