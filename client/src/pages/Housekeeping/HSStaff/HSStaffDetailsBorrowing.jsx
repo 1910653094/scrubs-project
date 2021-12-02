@@ -8,24 +8,24 @@ import './HSStaffDetailsBorrowing.scss';
 
 const HSStaffDetailsBorrowing = () => {
 	const location = useLocation();
-	const { borrowing, status, name } = location.state;
+	const { borrowing } = location.state;
 
-	const toLocaleDate = dateString => {
+	/*const toLocaleDate = dateString => {
 		const splitted = dateString.split(' ');
 		return new Date(splitted[0]).toLocaleDateString();
-	};
+	};*/
 
 	return (
 		<PageWrapper>
 			<h2>
-				Staff Members > { name } > { borrowing.description }
+				Staff Members > { borrowing.givenBy } > { borrowing.type }
 			</h2>
 			<Card title='' class_name='flex'>
 				<div className="col-1">
 					<DetailedInformation
 						title="General Information"
 						items={[
-							{ attr: 'Type', val: borrowing.description },
+							{ attr: 'Type', val: borrowing.type },
 							{ attr: 'Size', val: borrowing.size },
 							{ attr: 'Color', val: borrowing.color },
 							{ attr: 'Gender', val: borrowing.gender }
@@ -34,10 +34,10 @@ const HSStaffDetailsBorrowing = () => {
 					<DetailedInformation
 						title="Borrowing Information"
 						items={[
-							{ attr: 'Borrowed On', val: toLocaleDate(borrowing.borrowed_date) },
-							{ attr: 'Given By', val: borrowing.name },
-							{ attr: 'Return By', val: toLocaleDate(borrowing.return_by) },
-							{ attr: 'Status', val: status }
+							{ attr: 'Borrowed On', val: borrowing.borrowDate },
+							{ attr: 'Given By', val: borrowing.givenBy },
+							{ attr: 'Return By', val: borrowing.returnBy },
+							{ attr: 'Status', val: borrowing.status }
 						]}
 					/>
 				</div>
