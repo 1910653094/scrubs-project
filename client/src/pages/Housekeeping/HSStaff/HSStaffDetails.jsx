@@ -8,6 +8,7 @@ const HSStaffDetails = () => {
 
 	const location = useLocation();
 	const { employee } = location.state;
+	console.log(employee);
 
 	const headers = [
 		{
@@ -45,7 +46,7 @@ const HSStaffDetails = () => {
 			align: 'left',
 		},
 		{
-			id: 'status', // completely returned -> needs to be mapped
+			id: 'status',
 			label: 'status',
 			minWidth: 120,
 			align: 'left',
@@ -65,8 +66,8 @@ const HSStaffDetails = () => {
 		if (borrowings.length === 0) {
 			fetching()
 				.then((res) => res.json())
-				.then(
-					(res) => {
+				.then(res => {
+						console.log(res);
 						res.map((r) => {
 							/*const return_date = new Date(r.return_by.split('T')[0]);
 							let status = r.completely_returned ? 'Returned' : 'Borrowing';
@@ -75,13 +76,14 @@ const HSStaffDetails = () => {
 								status = 'Overdue';
 							}
 */
+							console.log(r);
 							setBorrowings((prev) => [
 								...prev,
 								{
-									description: r.type,
+									type: r.type,
 									size: r.size,
 									color: r.color,
-									quantity: r.amount,
+									amount: r.amount,
 									borrowDate: r.borrowDate,
 									returnBy: r.returnBy,
 									status: r.status,

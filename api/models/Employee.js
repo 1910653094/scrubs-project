@@ -58,7 +58,7 @@ class Employee {
         };
     };
 
-    insertEmployee = async (pass) => {
+    insertEmployee = async () => {
         const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         const pwdLen = 16;
         const randPassword = Array(pwdLen)
