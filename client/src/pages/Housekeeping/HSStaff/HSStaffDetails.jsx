@@ -11,7 +11,7 @@ const HSStaffDetails = () => {
 
 	const headers = [
 		{
-			id: 'description',
+			id: 'type',
 			label: 'Scrub Type',
 			minWidth: 120,
 		},
@@ -27,19 +27,19 @@ const HSStaffDetails = () => {
 			align: 'left',
 		},
 		{
-			id: 'quantity',
+			id: 'amount',
 			label: 'Total items',
 			minWidth: 120,
 			align: 'left',
 		},
 		{
-			id: 'borrowed_on',
+			id: 'borrowDate',
 			label: 'Borrowed on',
 			minWidth: 120,
 			align: 'left',
 		},
 		{
-			id: 'return_by',
+			id: 'returnBy',
 			label: 'Return by',
 			minWidth: 120,
 			align: 'left',
@@ -68,27 +68,27 @@ const HSStaffDetails = () => {
 				.then(
 					(res) => {
 						res.map((r) => {
-							const return_date = new Date(r.return_by.split('T')[0]);
+							/*const return_date = new Date(r.return_by.split('T')[0]);
 							let status = r.completely_returned ? 'Returned' : 'Borrowing';
 
 							if (return_date < new Date()) {
 								status = 'Overdue';
 							}
-
+*/
 							setBorrowings((prev) => [
 								...prev,
 								{
-									description: r.description,
+									description: r.type,
 									size: r.size,
 									color: r.color,
-									quantity: r.quantity,
-									borrowed_on: r.borrowed_date.split('T')[0],
-									return_by: r.return_by.split('T')[0],
-									status: status,
+									quantity: r.amount,
+									borrowDate: r.borrowDate,
+									returnBy: r.returnBy,
+									status: r.status,
 									action: (
 										<DetailsLink
 											path='/h/staff/details/borrowing'
-											state={{ borrowing: r, status: status, name: employee.name }}
+											state={{ borrowing: r }}
 										/>
 									),
 								},
