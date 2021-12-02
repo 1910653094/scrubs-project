@@ -1,9 +1,22 @@
-import { CustomTable, DetailsLink } from '../../../components';
+import { CustomTable, DetailsLink, Spinner } from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	cleanEmployees,
+	getEmployees,
+} from '../../../redux/features/employees/employeesSlice';
 
 const HSStaff = () => {
-	const [ employees, setEmployees ] = useState([]);
+	const dispatch = useDispatch();
+	const { isLoading, data, error } = useSelector(({ employees }) => employees);
+
+	useEffect(() => {
+		dispatch(getEmployees());
+		return () => {
+			dispatch(cleanEmployees());
+		};
+	}, []);
 
 	const headers = [
 		{
@@ -29,33 +42,32 @@ const HSStaff = () => {
 		},
 	];
 
-	useEffect(() => {
-		const fetching = async() => await fetch('http://localhost:9000/employee/all');
-		if (employees.length === 0) {
-			fetching()
-				.then(res => res.json())
-				.then(res => {
-					res
-						.filter(r => r.profession === 'msm')
-						.map(r => {
-							setEmployees(prev => [ ...prev, {
-								name: r.name,
-								email: r.email,
-								profession: r.profession,
-								action: <DetailsLink path='/h/staff/details' state={{ employee: r }} />
-							} ]);
-						});
-				}, error => {
-					console.log(`An error occured while fetching: ${error}`);
-				});
-		}
-	}, [employees]);
-
 	return (
 		<PageWrapper>
 			<h2>Staff Members</h2>
 			<Card title=''>
-				<CustomTable rows={employees} columns={headers} />
+				{isLoading ? (
+					<Spinner />
+				) : (
+					<CustomTable
+						rows={data
+							.filter((r) => r.profession === 'msm')
+							.map((r) => {
+								return {
+									name: r.name,
+									email: r.email,
+									profession: 'Doctor',
+									action: (
+										<DetailsLink
+											path='/h/staff/details'
+											state={{ employee: r }}
+										/>
+									),
+								};
+							})}
+						columns={headers}
+					/>
+				)}
 			</Card>
 		</PageWrapper>
 	);
