@@ -1,4 +1,4 @@
-import { CustomTable, DetailsLink, Spinner } from '../../../components';
+import {CustomButton, CustomTable, DetailsLink, Spinner} from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import {
 	cleanEmployees,
 	getEmployees,
 } from '../../../redux/features/employees/employeesSlice';
+import './HSStaff.scss';
 
 const HSStaff = () => {
 	const dispatch = useDispatch();
@@ -42,9 +43,16 @@ const HSStaff = () => {
 		},
 	];
 
+	const handleClick = () => {
+		console.log("hi");
+	};
+
 	return (
 		<PageWrapper>
-			<h2>Staff Members</h2>
+			<div className="header-container">
+				<h2>Staff Members</h2>
+				<CustomButton type="primary" text="Register new Member" onClick={handleClick}/>
+			</div>
 			<Card title=''>
 				{isLoading ? (
 					<Spinner />
