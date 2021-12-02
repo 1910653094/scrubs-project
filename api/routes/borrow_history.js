@@ -22,9 +22,9 @@ router.get('/fromEmployee', [
 
     let obj = await new BorrowHistory().getBorrowHistoryFromEmployee(req.query.id);
     if (obj.status === 200) {
-        obj = obj.response.map(o => {
-            const borrowed_date = o.borrowed_date.split(" ")[0];
-            const returnBy = o.return_by.split(" ")[0];
+        obj.response = obj.response.map(o => {
+            const borrowed_date = new Date(o.borrowed_date);
+            const returnBy = new Date(o.return_by);
 
             let status = "borrowed";
             if (o.completely_returned) status = "returned";
@@ -36,9 +36,9 @@ router.get('/fromEmployee', [
                 color: o.color,
                 amount: o.quantity,
                 gender: o.gender,
-                borrowDate: borrowed_date,
+                borrowDate: borrowed_date.toLocaleDateString(),
                 givenBy: o.name,
-                returnBy: returnBy,
+                returnBy: returnBy.toLocaleDateString(),
                 status: status
             };
         });

@@ -58,7 +58,7 @@ class Employee {
         };
     };
 
-    insertEmployee = async () => {
+    insertEmployee = async (pass) => {
         const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         const pwdLen = 16;
         const randPassword = Array(pwdLen)
@@ -102,7 +102,9 @@ class Employee {
             return allObj;
         }
         const employee = allObj.response
-            .map(e => new Employee(e.id_employee, e.email, e.password, e.name, e.profession))
+            .map(e => new Employee(
+                e.id_employee, e.email, e.password, e.name, e.profession, e.gender,
+                e.shoe_preference, e.top_preference, e.bottom_preference, e.gloves_preference))
             .find(e => e.email === this.email);
 
         const match = await new Promise((resolve, reject) => {
