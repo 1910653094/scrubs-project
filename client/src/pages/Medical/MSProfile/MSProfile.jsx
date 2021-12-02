@@ -1,79 +1,43 @@
-import { ReactComponent as BurgerIcon } from '../../../assets/icons/Burgericon.svg';
-import { ReactComponent as ArrowLeft } from '../../../assets/icons/Arrow-Left.svg';
-import { ReactComponent as Report } from '../../../assets/icons/Report.svg';
-import { CustomButton } from '../../../components';
-import { DetailedInformation } from '../../../components';
-import { Status } from '../../../components';
-import { Input } from '../../../components';
-import { COLORS } from '../../../assets';
-import './MSScrubsDetails.scss';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { DetailedInformation, Spinner } from '../../../components';
 import MSPageWrapper from '../../../layouts/MSPageWrapper/MSPageWrapper';
+import {
+	cleanProfileData,
+	getProfile,
+} from '../../../redux/features/employees/profileSlice';
+import './MSProfile.scss';
 
 const MSProfile = () => {
+	const dispatch = useDispatch();
+
+	const { data, isLoading, error } = useSelector(({ profile }) => profile);
+
+	useEffect(() => {
+		dispatch(getProfile());
+		return () => {
+			dispatch(cleanProfileData());
+		};
+	}, []);
 	return (
 		<MSPageWrapper>
 			<div className='ms-scrubs-details'>
 				<div className='container'>
-					<div className='action-container'>
-						<div className='go-back-container'>
-							<div className='arrow-left'>
-								<ArrowLeft />
-							</div>
-							<div className='back-text'> Gloves</div>
-						</div>
-						<div className='report-item-container'>
-							<div className='report-icon' onClick={() => {}}>
-								<Report />
-							</div>
-							<CustomButton
-								text={
-									<div>
-										<Report />
-										Report item
-									</div>
-								}
-								textColor={COLORS.genericRed}
-								type='tertiary'
-								fontSize='14px'
-								letterSpacing='0.01em'
+					{isLoading ? (
+						<Spinner />
+					) : (
+						<>
+							<h2>{data.name}</h2>
+							<DetailedInformation
+								items={[
+									{ attr: 'Email', val: data.email },
+									{ attr: 'Gender', val: data.gender },
+									{ attr: 'Professiion', val: 'Housekeeping' },
+									{ attr: 'Hospital', val: data.hospital },
+								]}
 							/>
-						</div>
-					</div>
-					<div className='status-icon'>
-						<Status type='overdue' />
-					</div>
-					<div className='detailed-info-container'>
-						<DetailedInformation
-							title='Scrubs information'
-							items={[
-								{ attr: 'type', val: 'Doctor' },
-								{ attr: 'color', val: 'Green' },
-								{ attr: 'Gender', val: 'Male' },
-								{ attr: 'size', val: 'L' },
-							]}
-						/>
-						<DetailedInformation
-							title='Borrowing information'
-							items={[
-								{ attr: 'borrowed on', val: '23/12/2021' },
-								{ attr: 'given by', val: 'James P. Sullivan' },
-								{ attr: 'return by', val: '24/12/2021' },
-								{ attr: 'items borrowed', val: '10' },
-							]}
-						/>
-					</div>
-
-					<div className='return-items-container'>
-						<div className='item-return-text'>Select items to return</div>
-						<div className='return-items-subcontainer'>
-							<Input type='number' maxWidth='3.5rem' />
-							<CustomButton
-								type='primary'
-								text='return items'
-								fontSize='16px'
-							/>
-						</div>
-					</div>
+						</>
+					)}
 				</div>
 			</div>
 		</MSPageWrapper>
