@@ -24,6 +24,8 @@ import {
 import { ProtectedRoute } from './components';
 import './App.scss';
 import { verifyUserInStorage } from './redux/features/authSlice/authSlice';
+import HSStaffDetails from "./pages/Housekeeping/HSStaff/HSStaffDetails";
+import HSStaffDetailsBorrowing from "./pages/Housekeeping/HSStaff/HSStaffDetailsBorrowing";
 
 const App = () => {
 	const dispatch = useDispatch();
