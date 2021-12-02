@@ -68,7 +68,7 @@ const authSlice = createSlice({
 			state.isAuthed = false;
 			state.role = undefined;
 			state.isLoading = false;
-			state.error = payload.error;
+			state.error = payload.error || payload;
 		},
 	},
 });
