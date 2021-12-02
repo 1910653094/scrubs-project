@@ -10,7 +10,7 @@ router.post('/', [
         .isInt({ min: 1 }),
     body('quantity')
         .isInt({ min: 1 })
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', [
     query('id_scrub_type').isInt(),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

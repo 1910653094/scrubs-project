@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/overdue', [
     query('id_employee')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -24,7 +24,7 @@ router.get('/overdue', [
 router.get('/borrowed/currently', [
     query('id_employee')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -39,7 +39,7 @@ router.get('/borrowed/currently', [
 router.get('/borrowed/details', [
     query('id_history')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -64,7 +64,7 @@ router.post('/borrow', [
         .isInt({ min: 1 }),
     body('amount')
         .isInt({ min: 1 })
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
