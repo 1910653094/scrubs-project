@@ -49,10 +49,6 @@ const HSStaff = () => {
 		},
 	];
 
-	const handleClick = () => {
-		console.log('hi');
-	};
-
 	return (
 		<PageWrapper>
 			<div className='header-container'>
@@ -65,12 +61,12 @@ const HSStaff = () => {
 				) : (
 					<CustomTable
 						rows={data
-							.filter((r) => r.profession === 'msm')
+							.filter((r) => r.profession.toUpperCase() === 'MSM')
 							.map((r) => {
 								return {
 									name: r.name,
 									email: r.email,
-									profession: 'Doctor',
+									profession: r.profession,
 									action: (
 										<DetailsLink
 											path='/h/staff/details'
