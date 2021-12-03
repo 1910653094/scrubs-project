@@ -1,5 +1,5 @@
 import React from 'react';
-import './DetailedInformation.scss';
+import './detailedInformation.scss';
 
 const DetailedInformation = ({ title, items }) => {
 	return (
