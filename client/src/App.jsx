@@ -20,6 +20,7 @@ import {
 	Logout,
 	HSStaffDetails,
 	HSStaffDetailsBorrowing,
+	MSBorrowingDetails,
 } from './pages';
 import { ProtectedRoute } from './components';
 import './App.scss';
@@ -57,6 +58,7 @@ const App = () => {
 				<Route exact path='m' element={<ProtectedRoute permission='msm' />}>
 					<Route path='' element={<Navigate to='dashboard' />} />
 					<Route path='dashboard' element={<MSDashboard />} />
+					<Route path='dashboard/borrowing' element={<MSBorrowingDetails />} />
 					<Route path='profile' element={<MSProfile />} />
 				</Route>
 
