@@ -3,9 +3,8 @@
 const query = require("../helper/query");
 
 class ReturnHistory {
-    constructor(id, return_date, quantity, id_history) {
+    constructor(id, quantity, id_history) {
         this.id = id;
-        this.return_date = return_date;
         this.quantity = quantity;
         this.id_history = id_history
     };

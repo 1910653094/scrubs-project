@@ -1,10 +1,29 @@
-import { CustomTable, DetailsLink } from '../../../components';
+import {
+	CustomButton,
+	CustomTable,
+	DetailsLink,
+	Spinner,
+} from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
 import NewMember from '../../../components/NewMember/NewMember';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	cleanEmployees,
+	getEmployees,
+} from '../../../redux/features/employees/employeesSlice';
+import './HSStaff.scss';
 
 const HSStaff = () => {
-	const [ employees, setEmployees ] = useState([]);
+	const dispatch = useDispatch();
+	const { isLoading, data, error } = useSelector(({ employees }) => employees);
+
+	useEffect(() => {
+		dispatch(getEmployees());
+		return () => {
+			dispatch(cleanEmployees());
+		};
+	}, []);
 
 	const headers = [
 		{
@@ -30,36 +49,36 @@ const HSStaff = () => {
 		},
 	];
 
-	useEffect(() => {
-		const fetching = async() => await fetch('http://localhost:9000/employee/all');
-		if (employees.length === 0) {
-			fetching()
-				.then(res => res.json())
-				.then(res => {
-					res
-						.filter(r => r.profession === 'msm')
-						.map(r => {
-							setEmployees(prev => [ ...prev, {
-								name: r.name,
-								email: r.email,
-								profession: r.profession,
-								action: <DetailsLink path='/h/staff/details' state={{ employee: r }} />
-							} ]);
-						});
-				}, error => {
-					console.log(`An error occured while fetching: ${error}`);
-				});
-		}
-	}, [employees]);
-
 	return (
 		<PageWrapper>
-			<h2>Staff Members</h2>
-			<NewMember />
-			<Card title='Staff Members List'>
-				<CustomTable rows={employees} columns={headers} />
+			<div className='header-container'>
+				<h2>Staff Members</h2>
+				<NewMember />
+			</div>
+			<Card title=''>
+				{isLoading ? (
+					<Spinner />
+				) : (
+					<CustomTable
+						rows={data
+							.filter((r) => r.profession.toUpperCase() === 'MSM')
+							.map((r) => {
+								return {
+									name: r.name,
+									email: r.email,
+									profession: r.profession,
+									action: (
+										<DetailsLink
+											path='/h/staff/details'
+											state={{ employee: r }}
+										/>
+									),
+								};
+							})}
+						columns={headers}
+					/>
+				)}
 			</Card>
-
 		</PageWrapper>
 	);
 };

@@ -4,6 +4,7 @@
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 1.1rem;
+	text-transform: capitalize;
 
 	h3 {
 		color: c.$blue-dark-2;

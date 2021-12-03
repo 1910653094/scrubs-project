@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getProfile = createAsyncThunk(
-	'profile/getProfile',
+	'employees/getProfile',
 	async (_, thunkAPI) => {
 		try {
 			const response = await fetch(

@@ -6,7 +6,7 @@ const { query, validationResult } = require("express-validator");
 const router = express.Router();
 
 
-router.get('/all', async (req, res, next) => {
+router.get('/all', async (req, res) => {
     let resObj = await new Room().getAllRooms();
     return res.status(resObj.status).json(resObj.response);
 });

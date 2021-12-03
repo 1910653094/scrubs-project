@@ -9,39 +9,45 @@ const router = express.Router();
 router.get('/overdue', [
     query('id_employee')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllOverdueScrubsByEmployee();
+    let resObj = await new Scrub(
+        null, null, null, null, null
+    ).getAllOverdueScrubsByEmployee(req.query.id_employee);
     return res.status(resObj.status).json(resObj.response);
 });
 
 router.get('/borrowed/currently', [
     query('id_employee')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(null, null, null, null, null, req.query.id_employee, null, null).getAllCurrentlyBorrowedScrubsByEmployee();
+    let resObj = await new Scrub(
+        null, null, null, null, null
+    ).getAllCurrentlyBorrowedScrubsByEmployee(req.query.id_employee);
     return res.status(resObj.status).json(resObj.response);
 });
 
 router.get('/borrowed/details', [
     query('id_history')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    let resObj = await new Scrub(null, null, null, null, null, null, null, null).getDetailsBorrowedScrubItem(req.query.id_history);
+    let resObj = await new Scrub(
+        null, null, null, null, null
+    ).getDetailsBorrowedScrubItem(req.query.id_history);
     return res.status(resObj.status).json(resObj.response);
 });
 
@@ -58,7 +64,7 @@ router.post('/borrow', [
         .isInt({ min: 1 }),
     body('amount')
         .isInt({ min: 1 })
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -67,8 +73,8 @@ router.post('/borrow', [
 
     let obj = req.body;
     let resObj = await new Scrub(
-        null, true, obj.borrowed_date, obj.return_date, obj.id_scrub_type, obj.id_employee, obj.id_given_by)
-        .employeeBorrowsScrubs(obj.amount);
+        null, true, obj.borrowed_date, obj.return_date, obj.id_scrub_type)
+        .employeeBorrowsScrubs(obj.amount, obj.id_employee, obj.id_given_by);
     return res.status(resObj.status).json(resObj.response);
 });
 

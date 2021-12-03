@@ -21,7 +21,7 @@ router.post('/', [
         .isInt({ min: 1 }),
     body('quantity')
         .isInt({ min: 1 }),
-], async (req, res, next) => {
+], async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -37,7 +37,7 @@ router.post('/', [
 
     let returnHistory = new ReturnHistory(null, null, obj.quantity, obj.id_history);
     let nbrScrubsUnreturnedUnreported = await returnHistory.getNumberOfUnreturnedUnreportedScrubsByHistory();
-    if(nbrScrubsUnreturnedUnreported.response[0].count - obj.quantity <= 0){
+    if (nbrScrubsUnreturnedUnreported.response[0].count - obj.quantity <= 0){
         await returnHistory.setCompletelyReturnedTrue();
     }
 

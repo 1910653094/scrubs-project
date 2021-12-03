@@ -5,7 +5,7 @@ import { DetailedInformation, Spinner } from '../../../components';
 import {
 	cleanProfileData,
 	getProfile,
-} from '../../../redux/features/profileSlice/profileSlice';
+} from '../../../redux/features/employees/profileSlice';
 
 const HSProfile = () => {
 	const dispatch = useDispatch();
