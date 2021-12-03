@@ -1,5 +1,6 @@
 import { CustomTable, DetailsLink } from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
+import NewMember from '../../../components/NewMember/NewMember';
 import React, { useEffect, useState } from "react";
 
 const HSStaff = () => {
@@ -54,9 +55,11 @@ const HSStaff = () => {
 	return (
 		<PageWrapper>
 			<h2>Staff Members</h2>
-			<Card title=''>
+			<NewMember />
+			<Card title='Staff Members List'>
 				<CustomTable rows={employees} columns={headers} />
 			</Card>
+
 		</PageWrapper>
 	);
 };
