@@ -17,12 +17,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const professions = [
   {
-    value: 'Medical Staff Member',
-    label: 'MSM',
+    value: 'MSM',
+    label: 'Medical Staff Member',
   },
   {
-    value: 'Housekeeping Staff Member',
-    label: 'HSM',
+    value: 'HSM',
+    label: 'Housekeeping Staff Member',
   }
 ];
 
@@ -65,12 +65,12 @@ const NewMember = () => {
     } else {
       setOpen(false);
 
-      console.log(email);
+      /*console.log(email);
       console.log(name);
       console.log(profession);
-      console.log(gender);
+      console.log(gender);*/
 
-      // CALL API Not sure that this is good!
+      // CALL API 
       dispatch(registerMember({ email: email, name: name, profession: profession, gender: gender }));
 
       // RESET VALUE

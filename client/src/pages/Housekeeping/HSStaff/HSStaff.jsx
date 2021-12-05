@@ -1,5 +1,11 @@
-import { CustomTable, DetailsLink, Spinner } from '../../../components';
+import {
+	CustomButton,
+	CustomTable,
+	DetailsLink,
+	Spinner,
+} from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
+import NewMember from '../../../components/NewMember/NewMember';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,7 +13,6 @@ import {
 	getEmployees,
 } from '../../../redux/features/employees/employeesSlice';
 import './HSStaff.scss';
-import NewMember from '../../../components/NewMember/NewMember';
 
 const HSStaff = () => {
 	const dispatch = useDispatch();
@@ -46,7 +51,7 @@ const HSStaff = () => {
 
 	return (
 		<PageWrapper>
-			<div className="header-container">
+			<div className='header-container'>
 				<h2>Staff Members</h2>
 				<NewMember />
 			</div>
@@ -56,12 +61,12 @@ const HSStaff = () => {
 				) : (
 					<CustomTable
 						rows={data
-							.filter((r) => r.profession === 'msm')
+							.filter((r) => r.profession.toUpperCase() === 'MSM')
 							.map((r) => {
 								return {
 									name: r.name,
 									email: r.email,
-									profession: 'Doctor',
+									profession: r.profession,
 									action: (
 										<DetailsLink
 											path='/h/staff/details'
@@ -74,7 +79,6 @@ const HSStaff = () => {
 					/>
 				)}
 			</Card>
-
 		</PageWrapper>
 	);
 };
