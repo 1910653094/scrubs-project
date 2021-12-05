@@ -51,6 +51,12 @@
 	}
 }
 
+.report-inputs {
+	display: flex;
+	gap: 1rem;
+	flex-flow: row wrap;
+}
+
 .actions {
 	flex: 1;
 	display: flex;

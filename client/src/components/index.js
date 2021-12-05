@@ -14,3 +14,4 @@ export { default as SRModal } from './Modals/SRModal';
 export { default as RModal } from './Modals/RModal';
 export { default as Divider } from './Divider/Divider';
 export { default as Select } from './Select/Select';
+export { default as TextArea } from './Input/TextArea';

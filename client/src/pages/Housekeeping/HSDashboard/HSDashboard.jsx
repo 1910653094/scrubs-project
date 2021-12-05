@@ -1,11 +1,27 @@
-import React from 'react';
-import { CustomTable, DetailsLink } from '../../../components';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { CustomTable, DetailsLink, Spinner } from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
 import './HSDashboard.scss';
 import ScrubActions from '../../../components/DashboardComponents/ScrubActions';
 import RadioButtons from '../../../components/DashboardComponents/RadioButtons';
+import {
+	getEmployees,
+	cleanEmployees,
+} from '../../../redux/features/employees/employeesSlice';
 
 const HSDashboard = () => {
+	const dispatch = useDispatch();
+	const { isLoading, data, error } = useSelector(({ employees }) => employees);
+
+	useEffect(() => {
+		dispatch(getEmployees());
+		return () => {
+			dispatch(cleanEmployees());
+		};
+	}, []);
+
 	const headers = [
 		{
 			id: 'name',
@@ -24,34 +40,12 @@ const HSDashboard = () => {
 			align: 'left',
 		},
 		{
-			id: 'borrowings',
-			label: 'Borrowings',
-			minWidth: 170,
-			align: 'right',
-		},
-		{
 			id: 'action',
 			minWidth: 170,
 			align: 'right',
 		},
 	];
 
-	const data = [
-		{
-			name: 'David Bester',
-			email: 'besterdavid01@gmail.com',
-			profession: 'Doctor',
-			borrowings: '10',
-			action: <DetailsLink path='/h/dashboard' />,
-		},
-		{
-			name: 'David Bester',
-			email: 'besterdavid01@gmail.com',
-			profession: 'Doctor',
-			borrowings: '10',
-			action: <DetailsLink path='/h/dashboard' />,
-		},
-	];
 	return (
 		<PageWrapper>
 			<h2>Dashboard</h2>
@@ -64,26 +58,42 @@ const HSDashboard = () => {
 							</Card>
 						</div>
 						<div className='col three'>
-							<Card title='General Scrub Information' />
+							<Card title='General Scrub Information'>Not implemented yet</Card>
 						</div>
 					</div>
 					<div className='row two'>
 						<Card title='Staff Member Information'>
-							<RadioButtons />
-							{data.length >= 1 ? (
-								<CustomTable columns={headers} rows={data} />
+							{isLoading ? (
+								<Spinner />
 							) : (
-								<div>No data available</div>
+								<CustomTable
+									rows={data
+										.filter((r) => r.profession.toUpperCase() === 'MSM')
+										.map((r) => {
+											return {
+												name: r.name,
+												email: r.email,
+												profession: r.profession,
+												action: (
+													<DetailsLink
+														path='/h/staff/details'
+														state={{ employee: r }}
+													/>
+												),
+											};
+										})}
+									columns={headers}
+								/>
 							)}
 						</Card>
 					</div>
 				</div>
 				<div className='col two'>
 					<div className='row five'>
-						<Card title='Recent Activites' />
+						<Card title='Recent Activites'>Not implemented yet</Card>
 					</div>
 					<div className='row four'>
-						<Card title='Scrub Rooms' />
+						<Card title='Scrub Rooms'>Not implemented yet</Card>
 					</div>
 				</div>
 			</div>
