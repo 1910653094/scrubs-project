@@ -8,3 +8,5 @@ export { default as DetailsLink } from "./DetailsLink/DetailsLink";
 export { default as DetailedInformation } from "./DetailedInformation/DetailedInformation";
 export { default as Status } from "./Status/Status";
 export { default as Input } from "./Input/Input";
+export { default as Select } from './Inputs/Select';
+export { default as TextArea } from './Inputs/TextArea';

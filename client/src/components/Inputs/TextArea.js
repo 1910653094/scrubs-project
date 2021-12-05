@@ -6,7 +6,7 @@ const TextArea = (props) => {
     return (
         <div>
             <p className="type">{props.title}</p>
-            <textarea id={props.type} className="input"></textarea>
+            <textarea id={props.type} className="input"/>
         </div>
     );
 };
