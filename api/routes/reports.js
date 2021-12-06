@@ -29,7 +29,9 @@ router.post('/', [
     }
 
     const obj = req.body;
-    let result = await new Scrub(null, null, null, null, null, null, null, null).getScrubUnreportedfromHistoryWithLimit(obj.id_history, obj.quantity);
+    let result = await new Scrub(
+        null, null, null, null, null, null, null, null
+    ).getScrubUnreportedfromHistoryWithLimit(obj.id_history, obj.quantity);
     if(result.response.length - obj.quantity < 0){
         return res.status(400).json({ errors: "Not enough scrubs to report" });
     }
