@@ -2,6 +2,7 @@
 
 const BorrowHistory = require("./BorrowHistory");
 const query = require("../helper/query");
+const ScrubBorrowHistory = require("./ScrubBorrowHistory");
 
 class Scrub {
   constructor(id_scrub, borrowed, borrowed_date, return_date, id_scrub_type) {
@@ -84,33 +85,47 @@ class Scrub {
       return allObj;
     }
 
-    if (allObj.length < amount) {
+    const scrubs = allObj.response
+      .map(s => new Scrub(s.id_scrub, s.borrowed, s.borrowed_date, s.return_date, s.id_scrub_type))
+      .filter(s => s.id_scrub_type === this.id_scrub_type);
+
+    if (scrubs.length < amount) {
       return {
         status: 400,
         response: "There are not enough free scrubs"
       };
     }
 
-    const scrubs = allObj.response
-      .map(s => new Scrub(s.id_scrub, s.borrowed, s.borrowed_date, s.return_date, s.id_scrub_type))
-      .filter(s => s.id_scrub_type === this.id_scrub_type);
     const willBeBorrowedScrubs = scrubs.slice(0, amount);
 
+    let res = await new BorrowHistory(
+        null, amount, this.borrowed_date, this.return_date, false, by_employee, given_by
+    ).insertBorrowHistory();
+
+    if (res.status !== 200) {
+      return res;
+    }
+    const id_history = res.response[0].id_history;
+
     await willBeBorrowedScrubs.every(async scrub => {
-      let res = await query(
+      res = await query(
         'Update specific scrub to be borrowed',
         'UPDATE scrub ' +
-        'SET borrowed = true, borrowed_date = $1, return_date = $2 WHERE id_scrub = $3',
+        'SET borrowed = true, borrowed_date = $1, return_date = $2 WHERE id_scrub = $3 RETURNING *',
         [this.borrowed_date, this.return_date, scrub.id_scrub]
       );
       if (res.status !== 200) {
         return false;
       }
+
+      res = await new ScrubBorrowHistory(null, scrub.id_scrub, id_history).insertScrubBorrowHistory();
+
+      if (res.status !== 200) {
+        return false;
+      }
     });
 
-    return await new BorrowHistory(
-        null, amount, this.borrowed_date, this.return_date, false, by_employee, given_by
-    ).insertBorrowHistory();
+    return res;
   };
 }
 

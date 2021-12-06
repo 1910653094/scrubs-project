@@ -8,7 +8,10 @@ const MSReport = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const borrowing = location.state;
-    console.log(borrowing);
+
+    const handleClick = () => {
+        console.log(borrowing);
+    };
 
     return (
         <MSPageWrapper>
@@ -32,8 +35,8 @@ const MSReport = () => {
 
                     <div className='return'>
                         <div>
-                            <CustomButton textColor='rgb(175, 68, 63)' type='tertiary' text='CANCEL' />
-                            <CustomButton type='primary' text='Return' fontSize='16px' />
+                            <CustomButton textColor='rgb(175, 68, 63)' type='tertiary' text='CANCEL' onClick={() => navigate(-1)} />
+                            <CustomButton type='primary' text='Return' fontSize='16px' onClick={handleClick} />
                         </div>
                     </div>
                 </div>
