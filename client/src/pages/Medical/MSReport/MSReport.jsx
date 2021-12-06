@@ -14,9 +14,7 @@ const MSReport = () => {
 	const location = useLocation();
 	const borrowing = location.state;
 
-	const handleClick = () => {
-		console.log(borrowing);
-	};
+	const handleClick = () => {};
 
 	return (
 		<MSPageWrapper>
