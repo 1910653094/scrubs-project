@@ -1,6 +1,6 @@
 import './Input.scss';
 
-const Input = (props) => {
+const TextArea = (props) => {
 	const {
 		title,
 		placeholder,
@@ -13,7 +13,7 @@ const Input = (props) => {
 	return (
 		<div className='custom-input' style={{ maxWidth: maxWidth }} {...props}>
 			{title && <div className='input-title'>{title}</div>}
-			<input
+			<textarea
 				{...props}
 				type={type}
 				placeholder={placeholder}
@@ -25,4 +25,4 @@ const Input = (props) => {
 	);
 };
 
-export default Input;
+export default TextArea;

@@ -53,11 +53,11 @@ const MSDashboard = () => {
 					<div className='ms-table'>
 						{isLoading ? (
 							<Spinner />
-						) : data.filter((r) => r.status === viewOption).length >= 1 ? (
+						) : data.filter((r) => r.status == viewOption).length >= 1 ? (
 							<CustomTable
 								columns={headers}
 								rows={data
-									.filter((r) => r.status === viewOption)
+									.filter((r) => r.status == viewOption)
 									.map((r) => {
 										return {
 											type: r.type,

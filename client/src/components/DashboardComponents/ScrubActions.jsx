@@ -1,41 +1,30 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
-import BodyBlackoutStyle from './BodyBlackoutStyle';
-import ScrubsToRoom from '../ScrubsToRoom/ScrubsToRoom';
+import { ActionButton, GSModal, SRModal, RModal } from '..';
 import './ScrubActions.scss';
 
 function ScrubActions() {
-	let [modalGiveScrub, modalGiveScrubChange] = useState(false);
-	// let [modalAssignRoom, modalAssignRoomChange] = useState(false);
+	const [GSModalOpen, setGSModalOpen] = useState(false);
+	const [SRModalOpen, setSSModalOpen] = useState(false);
+	const [RModalOpen, setRModalOpen] = useState(false);
 
-	const onGSModal = (active) => {
-		modalGiveScrubChange(active);
-	};
-	// const onARModal = (active) => {
-	// 	modalAssignRoomChange(active);
-	// };
 	return (
-		<div className='scrub-actions'>
-			<div className='scrub-actions-div'>
-				<button
-					id='s-c-blue'
-					className='scrub-actions-box'
-					onClick={() => onGSModal(true)}
-				>
-					Give to Scrub Member
-				</button>
-				<ScrubsToRoom />
-				<button id='s-c-red' className='scrub-actions-box'>
+		<>
+			<div className='buttons'>
+				<ActionButton onClick={() => setGSModalOpen(true)} color='blue'>
+					Give to a staff member
+				</ActionButton>
+				<ActionButton onClick={() => setSSModalOpen(true)} color='green'>
+					Assign to Room
+				</ActionButton>
+				<ActionButton onClick={() => setRModalOpen(true)} color='red'>
 					Report
-				</button>
+				</ActionButton>
 			</div>
-			<div>
-				{modalGiveScrub && <BodyBlackoutStyle onGSModal={onGSModal} />}
-				{modalGiveScrub && (
-					<Modal modalGiveScrubChange={modalGiveScrubChange} />
-				)}
-			</div>
-		</div>
+
+			{GSModalOpen && <GSModal closeModal={() => setGSModalOpen(false)} />}
+			{SRModalOpen && <SRModal closeModal={() => setSSModalOpen(false)} />}
+			{RModalOpen && <RModal closeModal={() => setRModalOpen(false)} />}
+		</>
 	);
 }
 

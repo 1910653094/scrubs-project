@@ -17,6 +17,12 @@ class ScrubType {
         'SELECT * FROM scrub_type WHERE id_scrub_type = $1;',
         [this.id]
     );
+
+    getAllScrubTypes = async () => await query(
+        'Get * scrub types',
+        'SELECT * FROM scrub_type;',
+        []
+    );
 }
 
 module.exports = ScrubType;

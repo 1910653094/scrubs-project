@@ -33,7 +33,7 @@ const MSBorrowingDetails = () => {
 							type='tertiary'
 							fontSize='14px'
 							letterSpacing='0.01em'
-							onClick={() => console.log('Report Screen ')}
+							onClick={() => navigate('report', { state: borrowing })}
 						/>
 					</div>
 					<Status type={borrowing.status} />
