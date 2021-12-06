@@ -1,7 +1,13 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 export const borrowScrubs = createAsyncThunk(
 	'scrubs/borrowScrubs',
-	async ({ id, amount, borrowed_date, return_date }, thunkAPI) => {
+	async (
+		{ id_scrub_type, id_employee, amount, borrowed_date, return_date },
+		thunkAPI
+	) => {
 		try {
+			const id = +localStorage.getItem('userId');
 			const response = await fetch('http://localhost:9000/scrubs/borrow', {
 				method: 'POST',
 				headers: {
@@ -9,10 +15,12 @@ export const borrowScrubs = createAsyncThunk(
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					email,
-					name,
-					profession,
-					gender,
+					id_scrub_type,
+					amount,
+					borrowed_date,
+					return_date,
+					id_employee,
+					id_given_by: id,
 				}),
 			});
 			let data = await response.json();

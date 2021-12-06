@@ -5,6 +5,8 @@ import { getEmployees } from '../../redux/features/employees/employeesSlice';
 import { CustomButton, Divider, Input, Select } from '..';
 import './Modal.scss';
 import { COLORS } from '../../assets';
+import { getScrubTypes } from '../../redux/features/scrubSlice/scrubSlice';
+import { borrowScrubs } from '../../redux/features/borrowings/borrowScrubsSlice';
 
 const generateDateString = (string) => {
 	const date = string.split('/');
@@ -21,8 +23,14 @@ const GSModal = ({ closeModal }) => {
 
 	const dispatch = useDispatch();
 	const { data, isLoading, error } = useSelector(({ employees }) => employees);
+	const {
+		data: scrubsData,
+		isLoading: scrubsLoading,
+		error: scrubsError,
+	} = useSelector(({ scrubs }) => scrubs);
 
 	useEffect(() => {
+		dispatch(getScrubTypes());
 		if (data.length === 0) {
 			dispatch(getEmployees());
 		}
@@ -34,17 +42,29 @@ const GSModal = ({ closeModal }) => {
 	);
 
 	const submitData = useCallback(() => {
-		const today = new Date().toISOString().slice(0, 10);
-		console.table({
-			...borrower,
-			amount,
-			selectedColor,
-			selectedType,
-			selectedSize,
-			returnDate,
-			today,
-		});
-	}, [borrower, amount, selectedSize, selectedType, returnDate]);
+		console.log(borrower);
+		const td = new Date();
+		const today = td.toISOString().slice(0, 10);
+		const nw = new Date(td.getFullYear(), td.getMonth(), td.getDate() + 7)
+			.toISOString()
+			.slice(0, 10);
+		const dateToReturn = returnDate == 'yyyy-mm-dd' ? nw : returnDate;
+		const item = scrubsData.find(
+			(item) =>
+				selectedColor.toLowerCase() === item.color &&
+				selectedSize === item.size &&
+				item.description === selectedType.toLowerCase()
+		);
+		dispatch(
+			borrowScrubs({
+				id_scrub_type: item?.id || 1,
+				amount: amount || 1,
+				borrowed_date: today,
+				id_employee: borrower.id_employee,
+				return_date: dateToReturn,
+			})
+		);
+	}, [borrower, amount, selectedSize, selectedType, returnDate, scrubsData]);
 
 	return (
 		<Modal closeModal={closeModal} title='Give Scrubs to staff member'>
@@ -60,7 +80,7 @@ const GSModal = ({ closeModal }) => {
 					data.map((emp) => <option value={emp.email}>{emp.email}</option>)}
 			</datalist>
 
-			{borrower && (
+			{borrower && scrubsData && (
 				<>
 					<Divider />
 					<div className='borrower-info-inputs'>
@@ -105,7 +125,7 @@ const GSModal = ({ closeModal }) => {
 								title='Color'
 								selectedValue={selectedColor}
 								maxWidth='100px'
-								options={['Red', 'Blue', 'White']}
+								options={['Red', 'Blue', 'White', 'Green']}
 								onChange={(e) => setSelectedColor(e.target.value)}
 							/>
 						</div>
