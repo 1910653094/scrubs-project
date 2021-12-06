@@ -10,7 +10,6 @@ import './MSProfile.scss';
 
 const MSProfile = () => {
 	const dispatch = useDispatch();
-
 	const { data, isLoading, error } = useSelector(({ profile }) => profile);
 
 	useEffect(() => {

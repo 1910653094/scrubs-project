@@ -79,9 +79,7 @@ const NewMember = () => {
       setProfession('');
       setgender('');
     }
-  }, [email, name, profession, gender])
-
-
+  }, [email, name, profession, gender]);
 
   return (
     <div>
@@ -135,7 +133,7 @@ const NewMember = () => {
         </DialogActions>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-export default NewMember
+export default NewMember;

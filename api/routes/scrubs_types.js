@@ -18,4 +18,9 @@ router.get('/', [
     return res.status(resObj.status).json(resObj.response);
 });
 
+router.get('/all', async (req, res) => {
+    let resObj = await new ScrubType().getAllScrubTypes();
+    return res.status(resObj.status).json(resObj.response);
+});
+
 module.exports = router;

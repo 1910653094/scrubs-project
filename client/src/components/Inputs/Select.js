@@ -22,7 +22,11 @@ const scrub_color=[]
 const room_name=[]
 const room_number=[]
 
-//
+const report_type = [
+    { value: 'Damage' },
+    { value: 'Missing' }
+];
+
 const Options = (items) => {
     return(
         <Fragment>
@@ -33,8 +37,8 @@ const Options = (items) => {
     );
 }
 
-function returnOption(type){
-    switch(type){
+const returnOption = type => {
+    switch(type) {
         case 'gender': return gender; 
         case 'profession': return profession;
         case 'scrub_type': return scrub_type;
@@ -42,18 +46,18 @@ function returnOption(type){
         case 'scrub_color': return scrub_color;
         case 'room_name': return room_name;
         case 'room_number': return room_number;
+        case 'report_type': return report_type;
     }
-}
+};
 
 
 const Select = (props) => {
     let option = returnOption(props.type);
-    console.log(option);
     return (
         <div >
             <p className="type">{props.title}</p>
             <select className="input"  id={props.type} >
-                <Options item={option}></Options>
+                <Options item={option} />
             </select>
         </div>
     );

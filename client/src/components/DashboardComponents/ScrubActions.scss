@@ -1,36 +1,5 @@
-
-
-.scrub-actions {
-  margin-top: 0px;
-  width: 100%;
-  float: left;
-}
-.scrub-actions-div {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-}
-
-.scrub-actions-box {
-  border-color: white;
-  text-align: left;
-  flex-grow: 1;
-  margin-top: 10px;
-  padding: 13px;
-  margin-left: 3px;
-  width: 100%;
-  color: white;
-  font-size: small;
-  font-weight: bold;
-  border-radius: 4px;
-}
-#s-c-blue {
-  background-color: rgb(108, 136, 204);
-}
-#s-c-green {
-  background-color: rgb(92, 176, 86);
-}
-#s-c-red {
-  background-color: rgb(165, 85, 68);
+.buttons {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.25rem;
 }

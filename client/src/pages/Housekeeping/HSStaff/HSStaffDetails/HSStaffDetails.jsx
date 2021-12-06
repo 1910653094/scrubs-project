@@ -1,22 +1,16 @@
-import React, { useEffect } from 'react';
-import {
-	CustomTable,
-	DetailedInformation,
-	DetailsLink,
-	Spinner,
-	Status,
-} from '../../../../components';
+import { CustomButton, CustomTable, DetailsLink } from '../../../../components';
 import { PageWrapper, Card } from '../../../../layouts';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-	cleanBorrowings,
-	getBorrowings,
-} from '../../../../redux/features/borrowings/borrowingsSlice';
+import DetailedInformation from "../../../../components/DetailedInformation/DetailedInformation";
+import './HSStaffDetails.scss';
 
 const HSStaffDetails = () => {
+	const [ borrowings, setBorrowings ] = useState([]);
+
 	const location = useLocation();
 	const { employee } = location.state;
+	console.log(employee);
 
 	const headers = [
 		{
@@ -66,61 +60,60 @@ const HSStaffDetails = () => {
 		},
 	];
 
-	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getBorrowings(employee.id_employee));
-
-		return () => {
-			dispatch(cleanBorrowings());
-		};
-	}, []);
-
-	const { isLoading, data, error } = useSelector(
-		({ borrowings }) => borrowings
-	);
+		const fetching = async () =>
+			await fetch(
+				`http://localhost:9000/history/fromEmployee?id=${employee.id_employee}`
+			);
+		if (borrowings.length === 0) {
+			fetching()
+				.then((res) => res.json())
+				.then(res => {
+						res.map((r) => {
+							setBorrowings((prev) => [
+								...prev,
+								{
+									type: r.type,
+									size: r.size,
+									color: r.color,
+									amount: r.amount,
+									borrowDate: r.borrowDate,
+									returnBy: r.returnBy,
+									status: r.status,
+									action: (
+										<DetailsLink
+											path='/h/staff/details/borrowing'
+											state={{ borrowing: r }}
+										/>
+									),
+								},
+							]);
+						});
+					},
+					(error) => {
+						console.log('An error occurred while fetching: ' + error);
+					}
+				);
+		}
+	}, [borrowings]);
 
 	return (
 		<PageWrapper>
-			<h2>
-				Staff Members {'>'} {employee.name}
-			</h2>
+			<h2>Staff Members > {employee.name}</h2>
 			<Card title=''>
-				<DetailedInformation
-					title='General Information'
-					items={[
-						{ attr: 'Full Name', val: employee.name },
-						{ attr: 'Email', val: employee.email },
-						{ attr: 'Profession', val: employee.profession },
-						{ attr: 'Gender', val: employee.gender },
-					]}
-				/>
-				{isLoading ? (
-					<Spinner />
-				) : data.length > 0 ? (
-					<CustomTable
-						rows={data.map((r) => {
-							return {
-								type: r.type,
-								size: r.size,
-								color: r.color,
-								amount: r.amount,
-								borrowDate: r.borrowDate,
-								returnBy: r.returnBy,
-								status:
-									(r.status && <Status type={r.status} />) || 'Unknown Status',
-								action: (
-									<DetailsLink
-										path='/h/staff/details/borrowing'
-										state={{ borrowing: r }}
-									/>
-								),
-							};
-						})}
-						columns={headers}
+				<div className="staff-details-header-container">
+					<DetailedInformation
+						title="General Information"
+						items={[
+							{ attr: 'Full Name', val: employee.name },
+							{ attr: 'Email', val: employee.email },
+							{ attr: 'Profession', val: employee.profession },
+							{ attr: 'Gender', val: employee.gender }
+						]}
 					/>
-				) : (
-					<div style={{ marginTop: '40px' }}>No data available</div>
-				)}
+					<CustomButton type="primary" text="Manage Member" />
+				</div>
+				<CustomTable rows={borrowings} columns={headers} />
 			</Card>
 		</PageWrapper>
 	);
