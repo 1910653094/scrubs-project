@@ -13,7 +13,9 @@ const RModal = ({ closeModal }) => {
 	const [description, setDescription] = useState('');
 	const [amount, setAmount] = useState(0);
 
-	const submitData = useCallback(() => {}, []);
+	const submitData = useCallback(() => {
+		closeModal();
+	}, []);
 
 	return (
 		<Modal closeModal={closeModal} title='Report Scrubs'>
@@ -36,7 +38,7 @@ const RModal = ({ closeModal }) => {
 					title='Color'
 					selectedValue={selectedColor}
 					maxWidth='100px'
-					options={['Red', 'Blue', 'White']}
+					options={['Red', 'Blue', 'White', 'Green']}
 					onChange={(e) => setSelectedColor(e.target.value)}
 				/>
 				<Select

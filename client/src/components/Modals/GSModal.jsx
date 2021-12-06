@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from './Modal';
 import { getEmployees } from '../../redux/features/employees/employeesSlice';
-import { CustomButton, Divider, Input, Select } from '..';
+import { CustomButton, Divider, Input, Select, Spinner } from '..';
 import './Modal.scss';
 import { COLORS } from '../../assets';
 import { getScrubTypes } from '../../redux/features/scrubSlice/scrubSlice';
@@ -64,6 +64,7 @@ const GSModal = ({ closeModal }) => {
 				return_date: dateToReturn,
 			})
 		);
+		closeModal();
 	}, [borrower, amount, selectedSize, selectedType, returnDate, scrubsData]);
 
 	return (
