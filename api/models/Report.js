@@ -2,6 +2,7 @@
 
 const query = require("../helper/query");
 const ScrubBorrowHistory = require("./ScrubBorrowHistory");
+const Scrub = require("./Scrub");
 
 class Report {
     constructor(id_report, report_type, description, id_scrub, id_reported_by) {
@@ -38,6 +39,33 @@ class Report {
             if (res.status !== 200) {
                 return false;
             }
+            // make scrub borrowed -> true?
+        });
+
+        return res;
+    };
+
+    insertReportFromHSM = async (id_scrub_type, quantity) => {
+        let res = await new Scrub(
+            null, null, null, null, id_scrub_type
+        ).getFreeScrubsByType();
+
+        if (res.status !== 200 || res.response.length > quantity) {
+            return res;
+        }
+
+        const scrubsArr = res.response.slice(0, quantity);
+
+        await scrubsArr.every(async scrub => {
+            res = await query(
+                'Insert a report',
+                'INSERT INTO report(report_type, description, id_scrub, id_reported_by) VALUES ($1, $2, $3, $4)',
+                [this.report_type, this.description, scrub.id_scrub, this.id_reported_by]
+            );
+            if (res.status !== 200) {
+                return false;
+            }
+            // make scrub borrowed -> true?
         });
 
         return res;
