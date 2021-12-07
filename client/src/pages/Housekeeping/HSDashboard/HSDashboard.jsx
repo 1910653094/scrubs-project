@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CustomTable, DetailsLink, Spinner } from '../../../components';
+import {
+	CustomTable,
+	DetailsLink,
+	Spinner,
+	Notification,
+	Notifications,
+} from '../../../components';
 import { PageWrapper, Card } from '../../../layouts';
 import './HSDashboard.scss';
 import ScrubActions from '../../../components/DashboardComponents/ScrubActions';
@@ -90,10 +96,12 @@ const HSDashboard = () => {
 				</div>
 				<div className='col two'>
 					<div className='row five'>
-						<Card title='Recent Activites'>Not implemented yet</Card>
+						<Card title='Recent Activites'>
+							<Notifications />
+						</Card>
 					</div>
 					<div className='row four'>
-						<Card title='Scrub Rooms'>Not implemented yet</Card>
+						<Card title='Scrub Rooms'>No room data available</Card>
 					</div>
 				</div>
 			</div>
