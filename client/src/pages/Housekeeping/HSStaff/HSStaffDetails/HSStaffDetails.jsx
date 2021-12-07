@@ -105,7 +105,9 @@ const HSStaffDetails = () => {
 
 	return (
 		<PageWrapper>
-			<h2>Staff Members > {employee.name}</h2>
+			<h2>
+				Staff Members {'>'} {employee.name}
+			</h2>
 			<Card title=''>
 				<div className='staff-details-header-container'>
 					<DetailedInformation
