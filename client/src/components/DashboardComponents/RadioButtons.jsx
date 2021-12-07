@@ -4,11 +4,11 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import './RadioButtons.scss';
 
-const a11yProps = index => {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
+const a11yProps = (index) => {
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	};
 };
 
 export default function RadioButtons({ returnValue }) {
@@ -21,7 +21,7 @@ export default function RadioButtons({ returnValue }) {
 				returnValue('overdue');
 				break;
 			case 1:
-				returnValue('borrowing');
+				returnValue('borrowed');
 				break;
 			case 2:
 				returnValue('returned');
@@ -41,7 +41,7 @@ export default function RadioButtons({ returnValue }) {
 					aria-label='basic tabs example'
 				>
 					<Tab className='tab' label='Overdue' {...a11yProps(0)} />
-					<Tab className='tab' label='Borrowing' {...a11yProps(1)} />
+					<Tab className='tab' label='Borrowed' {...a11yProps(1)} />
 					<Tab className='tab' label='Returned' {...a11yProps(2)} />
 				</Tabs>
 			</Box>
