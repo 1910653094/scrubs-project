@@ -84,12 +84,10 @@ class Scrub {
     if (allObj.status !== 200) {
       return allObj;
     }
-    console.log(this.id_scrub_type);
 
     const scrubs = allObj.response
       .map(s => new Scrub(s.id_scrub, s.borrowed, s.borrowed_date, s.return_date, s.id_scrub_type))
       .filter(s => s.id_scrub_type === this.id_scrub_type);
-    console.log(scrubs);
 
     if (scrubs.length < amount) {
       return {

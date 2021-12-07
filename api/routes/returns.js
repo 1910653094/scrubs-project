@@ -11,7 +11,7 @@ router.post('/', [
     body('quantity')
         .isInt({ min: 1 })
 ], async (req, res) => {
-    const errors = validationResult(req);
+    /*const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -34,7 +34,7 @@ router.post('/', [
         await returnHistory.setCompletelyReturnedTrue();
     }
     let resObj = await returnHistory.insertReturn();
-    return res.status(resObj.status).json(resObj.response);
+    return res.status(resObj.status).json(resObj.response);*/
 });
 
 module.exports = router;

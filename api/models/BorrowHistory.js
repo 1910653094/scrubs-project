@@ -56,10 +56,10 @@ class BorrowHistory {
             if (res.status !== 200) {
                 return res;
             }
-
             res.response.forEach(returnHistory => {
                 const qty = returnHistory.quantity;
                 h.quantity -= qty;
+                returnHistory.status = "returned";
                 history.push(returnHistory);
             });
 
@@ -80,21 +80,25 @@ class BorrowHistory {
         [id]
     );
 
-    // needs to be tested with actual return history
     getReturnHistoryFromBorrowHistory = async id => await query(
         'Get * return history from distinct borrow history',
-        'SELECT id_history, rh.quantity, bh.borrowed_date, return_by, completely_returned, ' +
+        'SELECT id_history, count(id_scrub) as quantity, bh.borrowed_date, return_by, completely_returned, ' +
         'description, size, color, scrub_type.gender, name ' +
-        'FROM return_history rh ' +
-        'JOIN scrub_borrow_history USING(id_history) ' +
+        'FROM scrub_borrow_history sbh ' +
         'JOIN borrow_history bh USING(id_history) ' +
         'JOIN scrub USING(id_scrub) ' +
         'JOIN scrub_type USING(id_scrub_type)' +
         'JOIN employee giver ON giver.id_employee = id_given_by ' +
-        'WHERE rh.id_history = $1 ' +
-        'GROUP BY id_history, rh.quantity, bh.borrowed_date, return_by, completely_returned, ' +
+        'WHERE returned = TRUE AND sbh.id_history = $1 ' +
+        'GROUP BY id_history, bh.borrowed_date, return_by, completely_returned, ' +
         'description, size, color, scrub_type.gender, name',
         [id]
+    );
+
+    getScrubs = async () => await query(
+        'Get not returned or reported scrubs',
+        '',
+        [this.id_history]
     );
 
     insertBorrowHistory = async () => await query(

@@ -29,6 +29,7 @@ router.get('/fromEmployee', [
             let status = "borrowed";
             if (o.completely_returned) status = "returned";
             else if (new Date(returnBy) < new Date()) status = "overdue";
+            else if (o.status) status = o.status;
 
             return {
                 type: o.description,

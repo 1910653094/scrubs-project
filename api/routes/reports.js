@@ -52,7 +52,7 @@ router.post('/', [
     }*/
     const resObj = await new Report(
         null, obj.report_type, obj.description, null, obj.id_reported_by
-    ).insertReport();
+    ).insertReport(obj.id_history, obj.quantity);
     return res.status(resObj.status).json(resObj.response);
 });
 
