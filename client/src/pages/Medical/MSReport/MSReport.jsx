@@ -34,11 +34,15 @@ const MSReport = () => {
 			reportScrubs({
 				report_type: reportType,
 				description: description,
-				id_reported_by: 1,
+				id_reported_by: parseInt(localStorage.getItem('userId')),
 				id_history: borrowing.id_history,
 				quantity: quantity
 			})
-		);
+		).then(res => {
+			if (res.meta.requestStatus === "fulfilled") {
+				window.location.reload();
+			}
+		});
 	};
 
 	return (

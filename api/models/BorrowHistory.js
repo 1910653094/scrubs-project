@@ -95,12 +95,6 @@ class BorrowHistory {
         [id]
     );
 
-    getScrubs = async () => await query(
-        'Get not returned or reported scrubs',
-        '',
-        [this.id_history]
-    );
-
     insertBorrowHistory = async () => await query(
         "Insert new borrowed history",
         'INSERT INTO borrow_history (quantity, borrowed_date, return_by, completely_returned, id_employee, id_given_by, id_room) ' +
