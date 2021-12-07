@@ -1,12 +1,17 @@
-import { CustomButton, CustomTable, DetailsLink } from '../../../../components';
+import {
+	CustomButton,
+	CustomTable,
+	DetailsLink,
+	Status,
+} from '../../../../components';
 import { PageWrapper, Card } from '../../../../layouts';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import DetailedInformation from "../../../../components/DetailedInformation/DetailedInformation";
+import DetailedInformation from '../../../../components/DetailedInformation/DetailedInformation';
 import './HSStaffDetails.scss';
 
 const HSStaffDetails = () => {
-	const [ borrowings, setBorrowings ] = useState([]);
+	const [borrowings, setBorrowings] = useState([]);
 
 	const location = useLocation();
 	const { employee } = location.state;
@@ -68,7 +73,8 @@ const HSStaffDetails = () => {
 		if (borrowings.length === 0) {
 			fetching()
 				.then((res) => res.json())
-				.then(res => {
+				.then(
+					(res) => {
 						res.map((r) => {
 							setBorrowings((prev) => [
 								...prev,
@@ -79,7 +85,7 @@ const HSStaffDetails = () => {
 									amount: r.amount,
 									borrowDate: r.borrowDate,
 									returnBy: r.returnBy,
-									status: r.status,
+									status: <Status type={r.status} />,
 									action: (
 										<DetailsLink
 											path='/h/staff/details/borrowing'
@@ -101,17 +107,17 @@ const HSStaffDetails = () => {
 		<PageWrapper>
 			<h2>Staff Members > {employee.name}</h2>
 			<Card title=''>
-				<div className="staff-details-header-container">
+				<div className='staff-details-header-container'>
 					<DetailedInformation
-						title="General Information"
+						title='General Information'
 						items={[
 							{ attr: 'Full Name', val: employee.name },
 							{ attr: 'Email', val: employee.email },
 							{ attr: 'Profession', val: employee.profession },
-							{ attr: 'Gender', val: employee.gender }
+							{ attr: 'Gender', val: employee.gender },
 						]}
 					/>
-					<CustomButton type="primary" text="Manage Member" />
+					<CustomButton type='primary' text='Manage Member' />
 				</div>
 				<CustomTable rows={borrowings} columns={headers} />
 			</Card>
