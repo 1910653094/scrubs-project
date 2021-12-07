@@ -5,7 +5,7 @@ import {
 	Navigate,
 } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	Login,
 	HSDashboard,
@@ -21,7 +21,7 @@ import {
 	HSStaffDetails,
 	HSStaffDetailsBorrowing,
 	MSBorrowingDetails,
-	MSReport
+	MSReport,
 } from './pages';
 import { ProtectedRoute } from './components';
 import './App.scss';
@@ -29,9 +29,11 @@ import { verifyUserInStorage } from './redux/features/authSlice/authSlice';
 
 const App = () => {
 	const dispatch = useDispatch();
+
+	const { isAuthed, role } = useSelector(({ auth }) => auth);
 	useEffect(() => {
 		dispatch(verifyUserInStorage());
-	}, []);
+	}, [isAuthed, role]);
 
 	return (
 		<Router>
