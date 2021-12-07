@@ -15,9 +15,9 @@ const generateDateString = (string) => {
 
 const GSModal = ({ closeModal }) => {
 	const [selectedEmail, setSelectedEmail] = useState('');
-	const [selectedSize, setSelectedSize] = useState('');
-	const [selectedType, setSelectedType] = useState('');
-	const [selectedColor, setSelectedColor] = useState('');
+	const [selectedSize, setSelectedSize] = useState('XXS');
+	const [selectedType, setSelectedType] = useState('Top');
+	const [selectedColor, setSelectedColor] = useState('Red');
 	const [amount, setAmount] = useState(0);
 	const [returnDate, setReturnDate] = useState('yyyy-mm-dd');
 
@@ -48,16 +48,17 @@ const GSModal = ({ closeModal }) => {
 		const nw = new Date(td.getFullYear(), td.getMonth(), td.getDate() + 7)
 			.toISOString()
 			.slice(0, 10);
-		const dateToReturn = returnDate == 'yyyy-mm-dd' ? nw : returnDate;
+		const dateToReturn = returnDate === 'yyyy-mm-dd' ? nw : returnDate;
 		const item = scrubsData.find(
 			(item) =>
 				selectedColor.toLowerCase() === item.color &&
 				selectedSize === item.size &&
-				item.description === selectedType.toLowerCase()
+				item.description === selectedType.toLowerCase() &&
+				borrower.gender === item.gender
 		);
 		dispatch(
 			borrowScrubs({
-				id_scrub_type: item?.id || 1,
+				id_scrub_type: item?.id_scrub_type || 1,
 				amount: amount || 1,
 				borrowed_date: today,
 				id_employee: borrower.id_employee,

@@ -64,9 +64,9 @@ class Scrub {
       WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history AND sc.id_scrub_type = st.id_scrub_type
       AND bh.id_history = $1;`,
     [id_history]
-  )
+  );
 
-  // function to get scrub borrowed from an id_history with a limit of rows and not reported yet
+  /*// function to get scrub borrowed from an id_history with a limit of rows and not reported yet
   getScrubUnreportedfromHistoryWithLimit = async (id_history, quantity) => await query(
     'Get scrub borrowed from id history with limit',
     `SELECT sc.id_scrub
@@ -76,7 +76,7 @@ class Scrub {
       AND sc.id_scrub NOT IN (SELECT r.id_scrub FROM report r)
       LIMIT $2;`,
     [id_history, quantity]
-  )
+  );*/
 
   // function to borrow an amount of scrubs with on scrub type
   employeeBorrowsScrubs = async (amount, by_employee, given_by) => {
@@ -84,10 +84,12 @@ class Scrub {
     if (allObj.status !== 200) {
       return allObj;
     }
+    console.log(this.id_scrub_type);
 
     const scrubs = allObj.response
       .map(s => new Scrub(s.id_scrub, s.borrowed, s.borrowed_date, s.return_date, s.id_scrub_type))
       .filter(s => s.id_scrub_type === this.id_scrub_type);
+    console.log(scrubs);
 
     if (scrubs.length < amount) {
       return {

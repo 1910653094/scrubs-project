@@ -39,7 +39,8 @@ router.get('/fromEmployee', [
                 borrowDate: borrowed_date.toLocaleDateString(),
                 givenBy: o.name,
                 returnBy: returnBy.toLocaleDateString(),
-                status: status
+                status: status,
+                id_history: o.id_history
             };
         });
     }

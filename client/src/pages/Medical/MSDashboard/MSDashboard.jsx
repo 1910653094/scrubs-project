@@ -57,7 +57,7 @@ const MSDashboard = () => {
 							<CustomTable
 								columns={headers}
 								rows={data
-									.filter((r) => r.status == viewOption)
+									.filter((r) => true)// r.status == viewOption)
 									.map((r) => {
 										return {
 											type: r.type,

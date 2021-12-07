@@ -13,8 +13,8 @@ router.post('/', [
         .not().isEmpty(),
     body('description')
         .not().isEmpty(),
-    body('id_scrub')
-        .isInt({ min: 1 }),
+/*    body('id_scrub')
+        .isInt({ min: 1 }),*/
     body('id_reported_by')
         .isInt({ min: 1 }),
     body('id_history')
@@ -29,7 +29,7 @@ router.post('/', [
     }
 
     const obj = req.body;
-    let result = await new Scrub(
+    /*let result = await new Scrub(
         null, null, null, null, null, null, null, null
     ).getScrubUnreportedfromHistoryWithLimit(obj.id_history, obj.quantity);
     if(result.response.length - obj.quantity < 0){
@@ -46,8 +46,10 @@ router.post('/', [
 
     let resObj;
     for (let i = 0; i < result.response.length; i++) {
-        resObj = await new Report(null, obj.report_type, obj.description, result.response[i].id_scrub, obj.id_reported_by).insertReport();
-    }
+        resObj = await new Report(
+            null, obj.report_type, obj.description, result.response[i].id_scrub, obj.id_reported_by
+        ).insertReport();
+    }*/
     return res.status(resObj.status).json(resObj.response);
 });
 
