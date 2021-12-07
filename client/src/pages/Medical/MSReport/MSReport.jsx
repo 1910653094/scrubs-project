@@ -7,9 +7,9 @@ import {
 	TextArea,
 } from '../../../components';
 import './MSReport.scss';
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {reportScrubs} from "../../../redux/features/reports/reportSlice";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { reportScrubs } from '../../../redux/features/reports/reportSlice';
 
 const MSReport = () => {
 	const navigate = useNavigate();

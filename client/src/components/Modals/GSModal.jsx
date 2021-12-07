@@ -59,7 +59,7 @@ const GSModal = ({ closeModal }) => {
 		dispatch(
 			borrowScrubs({
 				id_scrub_type: item?.id_scrub_type || 1,
-				amount: amount || 1,
+				quantity: amount || 1,
 				borrowed_date: today,
 				id_employee: borrower.id_employee,
 				return_date: dateToReturn,

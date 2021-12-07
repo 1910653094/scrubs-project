@@ -9,11 +9,38 @@ import {
 import { ReactComponent as ArrowLeft } from '../../../assets/icons/Arrow-Left.svg';
 import { ReactComponent as Report } from '../../../assets/icons/Report.svg';
 import './MSBorrowingDetails.scss';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { returnScrubs } from '../../../redux/features/borrowings/returnScrubsSlice';
 
 const MSBorrowingDetails = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const location = useLocation();
 	const { borrowing } = location.state;
+
+	const [ quantity, setQuantity ] = useState(1);
+
+	const handleChange = e => {
+		const newValue = e.target.value;
+		if (newValue > 0 && newValue <= borrowing.amount) {
+			setQuantity(newValue);
+		}
+	}
+
+	const handleClick = () => {
+		dispatch(
+			returnScrubs({
+				id_history: borrowing.id_history,
+				quantity: quantity,
+			})
+		).then(res => {
+			if (res.meta.requestStatus === "fulfilled") {
+				window.location.reload();
+			}
+		});
+	};
+
 	return (
 		<MSPageWrapper>
 			<div className='ms-your-borrowings'>
@@ -60,8 +87,18 @@ const MSBorrowingDetails = () => {
 					<div className='return'>
 						<span>Select items to return</span>
 						<div>
-							<Input type='number' maxWidth='3.5rem' />
-							<CustomButton type='primary' text='Return' fontSize='16px' />
+							<Input
+								type='number'
+								maxWidth='4.5rem'
+								value={quantity}
+								onChange={handleChange}
+							/>
+							<CustomButton
+								type='primary'
+								text='Return'
+								fontSize='16px'
+								onClick={handleClick}
+							/>
 						</div>
 					</div>
 				</div>

@@ -1,21 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const reportScrubs = createAsyncThunk(
-    'scrubs/reportScrubs',
-    async ({ report_type, description, id_reported_by, id_history, quantity }, thunkAPI) => {
+export const returnScrubs = createAsyncThunk(
+    'scrubs/returnScrubs',
+    async ({ id_history, quantity, completely_returned }, thunkAPI) => {
         try {
-            const response = await fetch('http://localhost:9000/reports', {
+            const response = await fetch('http://localhost:9000/scrubs/return', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    report_type,
-                    description,
-                    id_reported_by,
                     id_history,
-                    quantity
+                    quantity,
+                    completely_returned
                 }),
             });
             let data = await response.json();

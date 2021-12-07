@@ -22,7 +22,7 @@ class ScrubBorrowHistory {
         [this.id_scrub, this.id_history]
     );
 
-    returnScrub = async () => await query(
+    updateScrubBorrowHistory = async () => await query(
         'Set returned to true',
         'UPDATE scrub_borrow_history SET returned = TRUE, returned_date = NOW() WHERE id_history = $1 AND id_scrub = $2;',
         [this.id_history, this.id_scrub]

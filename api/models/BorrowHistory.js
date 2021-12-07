@@ -44,6 +44,7 @@ class BorrowHistory {
         let history = [];
 
         await Promise.all(resObj.response.map(async h => {
+            console.log(h);
             let res = await this.getReportedFromBorrowHistory(h.id_history);
             if (res.status !== 200) {
                 return res;
@@ -66,7 +67,9 @@ class BorrowHistory {
             if (h.quantity > 0) {
                 return h;
             }
-        })).then(res => resObj.response = res.concat(history));
+            return {};
+        })).then(res => resObj.response = res.filter(value => Object.keys(value).length !== 0).concat(history));
+        console.log(history);
 
         return resObj;
     };
@@ -90,16 +93,22 @@ class BorrowHistory {
         'JOIN scrub_type USING(id_scrub_type)' +
         'JOIN employee giver ON giver.id_employee = id_given_by ' +
         'WHERE returned = TRUE AND sbh.id_history = $1 ' +
-        'GROUP BY id_history, bh.borrowed_date, return_by, completely_returned, ' +
+        'GROUP BY id_history, sbh.returned_date, bh.borrowed_date, return_by, completely_returned, ' +
         'description, size, color, scrub_type.gender, name',
         [id]
     );
 
     insertBorrowHistory = async () => await query(
-        "Insert new borrowed history",
+        'Insert new borrowed history',
         'INSERT INTO borrow_history (quantity, borrowed_date, return_by, completely_returned, id_employee, id_given_by, id_room) ' +
         'VALUES ($1, $2, $3, FALSE, $4, $5, $6) RETURNING *',
         [this.quantity, this.borrowed_date, this.return_by, this.id_employee, this.id_given_by, this.id_room]
+    );
+
+    updateBorrowHistory = async () => await query(
+        'Update borrow history -> returned completely',
+        'UPDATE borrow_history SET completely_returned = TRUE where id_history = $1',
+        [this.id_history]
     );
 }
 
