@@ -4,6 +4,7 @@ import profileReducer from '../features/employees/profileSlice';
 import employeesReducer from '../features/employees/employeesSlice';
 import borrowingsReducer from '../features/borrowings/borrowingsSlice';
 import scrubsReducer from '../features/scrubSlice/scrubSlice';
+import reportsReducer from '../features/reports/getReportsSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
 		employees: employeesReducer,
 		borrowings: borrowingsReducer,
 		scrubs: scrubsReducer,
+		reports: reportsReducer,
 	},
 });

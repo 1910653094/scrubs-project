@@ -12,6 +12,14 @@ class Report {
         this.id_reported_by = id_reported_by;
     };
 
+    getAllReports = async () => await query(
+        'Get * reports',
+        'SELECT report_type, r.description as message, color, size, scrub_type.description, scrub_type.gender, name ' +
+        'FROM report r ' +
+        'JOIN scrub USING(id_scrub) JOIN scrub_type USING(id_scrub_type) JOIN employee ON id_employee = id_reported_by',
+        []
+    );
+
     insertReport = async (id_history, quantity) => {
         let res = await new ScrubBorrowHistory(null, null, id_history).getScrubs();
 

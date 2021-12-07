@@ -6,6 +6,12 @@ const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 
+router.get('/all', async (req, res) => {
+    const resObj = await new Report().getAllReports();
+    return res.status(resObj.status).json(resObj.response);
+});
+
+
 router.post('/', [
     body('report_type')
         .not().isEmpty(),
