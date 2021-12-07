@@ -9,13 +9,13 @@ class ReturnHistory {
         this.id_history = id_history
     };
 
-    getReturnHistoryByHistory = async () => await query(
+    /*getReturnHistoryByHistory = async () => await query(
         'Get * return history by history id',
         'SELECT * FROM return_history WHERE id_history = $1',
         [this.id_history]
-    );
+    );*/
 
-    setBorrowedStateScrubsToFalse = async () => await query(
+    /*setBorrowedStateScrubsToFalse = async () => await query(
         'Set unborrowed state',
         `UPDATE scrub SET borrowed = false WHERE id_scrub IN
         (SELECT sc.id_scrub
@@ -45,7 +45,7 @@ class ReturnHistory {
         'Insert a return',
         'INSERT INTO return_history(return_date, quantity, id_history) VALUES ($1, $2, $3);',
         [this.return_date, this.quantity, this.id_history]
-    );
+    );*/
 
 
 }

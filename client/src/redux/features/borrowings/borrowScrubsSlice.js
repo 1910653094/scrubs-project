@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 export const borrowScrubs = createAsyncThunk(
 	'scrubs/borrowScrubs',
 	async (
-		{ id_scrub_type, id_employee, amount, borrowed_date, return_date },
+		{ id_scrub_type, quantity, id_employee, amount, borrowed_date, return_date },
 		thunkAPI
 	) => {
 		try {
@@ -16,7 +16,7 @@ export const borrowScrubs = createAsyncThunk(
 				},
 				body: JSON.stringify({
 					id_scrub_type,
-					amount,
+					quantity,
 					borrowed_date,
 					return_date,
 					id_employee,

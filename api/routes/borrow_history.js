@@ -21,6 +21,7 @@ router.get('/fromEmployee', [
     }
 
     let obj = await new BorrowHistory().getBorrowHistoryFromEmployee(req.query.id);
+    console.log(obj.response);
     if (obj.status === 200) {
         obj.response = obj.response.map(o => {
             const borrowed_date = new Date(o.borrowed_date);
@@ -29,6 +30,7 @@ router.get('/fromEmployee', [
             let status = "borrowed";
             if (o.completely_returned) status = "returned";
             else if (new Date(returnBy) < new Date()) status = "overdue";
+            else if (o.status) status = o.status;
 
             return {
                 type: o.description,
@@ -39,7 +41,8 @@ router.get('/fromEmployee', [
                 borrowDate: borrowed_date.toLocaleDateString(),
                 givenBy: o.name,
                 returnBy: returnBy.toLocaleDateString(),
-                status: status
+                status: status,
+                id_history: o.id_history
             };
         });
     }

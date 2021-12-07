@@ -19,7 +19,7 @@ export const loginUser = createAsyncThunk(
 
 			if (response.status === 200) {
 				localStorage.setItem('userId', data.id);
-				localStorage.setItem('role', data.profession);
+				localStorage.setItem('role', data.profession.toLowerCase());
 				return { ...data };
 			} else {
 				return thunkAPI.rejectWithValue({ error: data });
