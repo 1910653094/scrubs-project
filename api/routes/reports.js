@@ -50,6 +50,9 @@ router.post('/', [
             null, obj.report_type, obj.description, result.response[i].id_scrub, obj.id_reported_by
         ).insertReport();
     }*/
+    const resObj = await new Report(
+        null, obj.report_type, obj.description, null, obj.id_reported_by
+    ).insertReport();
     return res.status(resObj.status).json(resObj.response);
 });
 
