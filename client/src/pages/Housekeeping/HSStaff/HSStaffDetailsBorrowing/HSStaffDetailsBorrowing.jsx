@@ -2,18 +2,27 @@ import { PageWrapper, Card } from '../../../../layouts';
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import DetailedInformation from "../../../../components/DetailedInformation/DetailedInformation";
-import { CustomButton } from "../../../../components";
+import {CustomButton, DetailsLink} from "../../../../components";
 import doctorImg from '../../../../assets/images/doctors-5.jpg';
 import './HSStaffDetailsBorrowing.scss';
 
 const HSStaffDetailsBorrowing = () => {
 	const location = useLocation();
-	const { borrowing } = location.state;
+	const { borrowing, employee } = location.state;
 
 	return (
 		<PageWrapper>
 			<h2>
-				Staff Members > { borrowing.givenBy } > { borrowing.type }
+				{
+					<DetailsLink
+						path='/h/staff'
+						style={false}>Staff Members</DetailsLink>
+				} > {
+				<DetailsLink
+					path='/h/staff/details'
+					state={{ employee: employee }}
+					style={false}>{employee.name}</DetailsLink>
+				} > { borrowing.type }
 			</h2>
 			<Card title='' class_name='flex'>
 				<div className="col-1">

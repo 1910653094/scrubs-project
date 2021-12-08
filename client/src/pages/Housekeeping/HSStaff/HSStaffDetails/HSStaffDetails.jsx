@@ -15,7 +15,6 @@ const HSStaffDetails = () => {
 
 	const location = useLocation();
 	const { employee } = location.state;
-	console.log(employee);
 
 	const headers = [
 		{
@@ -89,7 +88,7 @@ const HSStaffDetails = () => {
 									action: (
 										<DetailsLink
 											path='/h/staff/details/borrowing'
-											state={{ borrowing: r }}
+											state={{ borrowing: r, employee: employee }}
 										/>
 									),
 								},
@@ -106,7 +105,10 @@ const HSStaffDetails = () => {
 	return (
 		<PageWrapper>
 			<h2>
-				Staff Members {'>'} {employee.name}
+				<DetailsLink
+					path='/h/staff'
+					style={false}
+				>Staff Members</DetailsLink> > {employee.name}
 			</h2>
 			<Card title=''>
 				<div className='staff-details-header-container'>
