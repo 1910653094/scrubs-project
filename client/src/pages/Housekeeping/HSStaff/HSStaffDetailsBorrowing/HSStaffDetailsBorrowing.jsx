@@ -37,7 +37,10 @@ const HSStaffDetailsBorrowing = () => {
 					/>
 				</div>
 				<div className="col-2">
-					<CustomButton type="primary" text="Remind to Return" />
+					{
+						borrowing.status !== "returned" &&
+						<CustomButton type="primary" text="Remind to Return"/>
+					}
 					<img src={doctorImg} alt="scrub" height={400} width={400} />
 				</div>
 			</Card>

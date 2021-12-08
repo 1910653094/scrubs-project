@@ -50,7 +50,7 @@ class Report {
             null, null, null, null, id_scrub_type
         ).getFreeScrubsByType();
 
-        if (res.status !== 200 || res.response.length > quantity) {
+        if (res.status !== 200 || res.response.length < quantity) {
             return res;
         }
 
@@ -63,7 +63,7 @@ class Report {
                 [this.report_type, this.description, scrub.id_scrub, this.id_reported_by]
             );
             if (res.status !== 200) {
-                return false;
+                return res;
             }
             // make scrub borrowed -> true?
         });
