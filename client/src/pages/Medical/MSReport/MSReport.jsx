@@ -91,7 +91,7 @@ const MSReport = () => {
 							/>
 							<CustomButton
 								type='primary'
-								text='Return'
+								text='Report'
 								fontSize='16px'
 								onClick={handleClick}
 							/>

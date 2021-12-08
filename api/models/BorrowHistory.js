@@ -44,7 +44,6 @@ class BorrowHistory {
         let history = [];
 
         await Promise.all(resObj.response.map(async h => {
-            console.log(h);
             let res = await this.getReportedFromBorrowHistory(h.id_history);
             if (res.status !== 200) {
                 return res;

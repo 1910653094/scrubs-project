@@ -64,7 +64,7 @@ const HSDashboard = () => {
 							</Card>
 						</div>
 						<div className='col three'>
-							<Card title='General Scrub Information'>Not implemented yet</Card>
+							<Card title='General Scrub Information'>Accessible in next version</Card>
 						</div>
 					</div>
 					<div className='row two'>
@@ -101,7 +101,7 @@ const HSDashboard = () => {
 						</Card>
 					</div>
 					<div className='row four'>
-						<Card title='Scrub Rooms'>No room data available</Card>
+						<Card title='Scrub Rooms'>Accessible in next version</Card>
 					</div>
 				</div>
 			</div>
