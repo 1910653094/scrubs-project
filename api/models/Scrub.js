@@ -67,17 +67,12 @@ class Scrub {
     [id_history]
   );
 
-  /*// function to get scrub borrowed from an id_history with a limit of rows and not reported yet
-  getScrubUnreportedfromHistoryWithLimit = async (id_history, quantity) => await query(
-    'Get scrub borrowed from id history with limit',
-    `SELECT sc.id_scrub
-      FROM scrub_borrow_history sbh, borrow_history bh, scrub sc
-      WHERE sbh.id_scrub = sc.id_scrub AND sbh.id_history = bh.id_history
-      AND bh.id_history = $1 AND sc.borrowed IS TRUE 
-      AND sc.id_scrub NOT IN (SELECT r.id_scrub FROM report r)
-      LIMIT $2;`,
-    [id_history, quantity]
-  );*/
+  getFreeScrubsByType = async () => await query(
+      'Get free scrubs by type',
+      'SELECT id_scrub FROM scrub WHERE borrowed = FALSE AND id_scrub_type = $1 AND id_scrub NOT IN ( ' +
+      'SELECT id_scrub FROM report )',
+      [this.id_scrub_type]
+  );
 
   // function to borrow an amount of scrubs with on scrub type
   employeeBorrowsScrubs = async (quantity, by_employee, given_by) => {
