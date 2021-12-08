@@ -125,7 +125,7 @@ const RModal = ({ closeModal }) => {
 						<CustomButton
 							textColor={COLORS.genericRed}
 							type='primary'
-							text='Give'
+							text='Report'
 							onClick={() => submitData()}
 						/>
 					</div>
