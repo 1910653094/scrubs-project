@@ -15,7 +15,7 @@ const RModal = ({ closeModal }) => {
 	const [selectedType, setSelectedType] = useState('Top');
 	const [selectedColor, setSelectedColor] = useState('White');
 	const [inputGender, setInputGender] = useState('Male');
-	const [reportType, setReportType] = useState('Danger');
+	const [reportType, setReportType] = useState('Damage');
 	const [description, setDescription] = useState('');
 	const [amount, setAmount] = useState(1);
 

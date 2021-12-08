@@ -21,7 +21,6 @@ router.get('/fromEmployee', [
     }
 
     let obj = await new BorrowHistory().getBorrowHistoryFromEmployee(req.query.id);
-    console.log(obj.response);
     if (obj.status === 200) {
         obj.response = obj.response.map(o => {
             const borrowed_date = new Date(o.borrowed_date);
