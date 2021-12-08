@@ -106,7 +106,7 @@ const RModal = ({ closeModal }) => {
 						title='Type of report'
 						selectedValue={reportType}
 						maxWidth='120px'
-						options={['Damage', 'Missing']}
+						options={['Damage']}// ['Damage', 'Missing']}
 						onChange={(e) => setReportType(e.target.value)}
 					/>
 					<TextArea
