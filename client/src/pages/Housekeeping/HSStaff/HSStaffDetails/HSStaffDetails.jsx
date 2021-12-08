@@ -121,7 +121,9 @@ const HSStaffDetails = () => {
 					/>
 					<CustomButton type='primary' text='Manage Member' />
 				</div>
-				<CustomTable rows={borrowings} columns={headers} />
+				<div style={{ flex: 1, position: 'relative' }}>
+					<CustomTable rows={borrowings} columns={headers} />
+				</div>
 			</Card>
 		</PageWrapper>
 	);
