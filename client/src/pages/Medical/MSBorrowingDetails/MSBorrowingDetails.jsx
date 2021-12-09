@@ -50,18 +50,21 @@ const MSBorrowingDetails = () => {
 							<ArrowLeft />
 						</div>
 						<h2>{borrowing.type}</h2>
-						<CustomButton
-							text={
-								<div className='report-button'>
-									<Report />
-									Report item
-								</div>
-							}
-							type='tertiary'
-							fontSize='14px'
-							letterSpacing='0.01em'
-							onClick={() => navigate('report', { state: borrowing })}
-						/>
+						{
+							borrowing.status !== "returned" &&
+							<CustomButton
+								text={
+									<div className='report-button'>
+										<Report/>
+										Report item
+									</div>
+								}
+								type='tertiary'
+								fontSize='14px'
+								letterSpacing='0.01em'
+								onClick={() => navigate('report', {state: borrowing})}
+							/>
+						}
 					</div>
 					<Status type={borrowing.status} />
 					<div className='detailed-info'>
@@ -84,23 +87,26 @@ const MSBorrowingDetails = () => {
 							]}
 						/>
 					</div>
-					<div className='return'>
-						<span>Select items to return</span>
-						<div>
-							<Input
-								type='number'
-								maxWidth='4.5rem'
-								value={quantity}
-								onChange={handleChange}
-							/>
-							<CustomButton
-								type='primary'
-								text='Return'
-								fontSize='16px'
-								onClick={handleClick}
-							/>
+					{
+						borrowing.status !== "returned" &&
+						<div className='return'>
+							<span>Select items to return</span>
+							<div>
+								<Input
+									type='number'
+									maxWidth='4.5rem'
+									value={quantity}
+									onChange={handleChange}
+								/>
+								<CustomButton
+									type='primary'
+									text='Return'
+									fontSize='16px'
+									onClick={handleClick}
+								/>
+							</div>
 						</div>
-					</div>
+					}
 				</div>
 			</div>
 		</MSPageWrapper>

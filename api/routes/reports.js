@@ -16,7 +16,7 @@ router.post('/', [
     body('report_type')
         .not().isEmpty(),
     body('description')
-        .not().isEmpty(),
+        .exists(),
     body('id_reported_by')
         .isInt({ min: 1 }),
     body('id_history')
@@ -41,7 +41,7 @@ router.post('/fromHSM', [
     body('report_type')
         .not().isEmpty(),
     body('description')
-        .not().isEmpty(),
+        .exists(),
     body('id_scrub_type')
         .isInt({ min: 1 }),
     body('id_reported_by')
@@ -52,6 +52,7 @@ router.post('/fromHSM', [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
+        console.log(errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 

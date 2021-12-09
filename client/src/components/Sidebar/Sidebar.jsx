@@ -10,7 +10,12 @@ import './Sidebar.scss';
 const Sidebar = () => {
 	return (
 		<div className='sidebar'>
-			<div className='logo'>LOGO</div>
+			<div className='logo'>
+				<div>
+					Scrubs.io
+					<span>know your scrubs</span>
+				</div>
+			</div>
 			<div className='items'>
 				<NavItem icon={<DashboardIcon />} text='Dashboard' to='/h/dashboard' />
 				<NavItem icon={<StaffIcon />} text='Staff Members' to='/h/staff' />

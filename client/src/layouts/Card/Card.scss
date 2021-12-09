@@ -4,7 +4,7 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 1rem;
-	background-color: c.$blue-light-4;
+	background-color: c.$blue-light-3;
 	padding: 1.5rem;
 	display: flex;
 	flex-flow: column;
@@ -21,10 +21,13 @@
 		flex: 1;
 		position: relative;
 		overflow: scroll;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.flex {
 		display: flex;
 		justify-content: space-between;
+		flex-direction: row;
 	}
 }
