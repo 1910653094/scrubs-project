@@ -55,7 +55,7 @@ const CustomTable = ({ columns, rows }) => {
 									align={column.align}
 									sx={{
 										minWidth: column.minWidth,
-										background: '#F2F5FB',
+										background: '#CBD8F0',
 										borderBottom: 'none',
 										color: '#6489d1',
 										lineHeight: '100%',

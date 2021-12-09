@@ -8,11 +8,10 @@ const historyRouter = require('./routes/borrow_history');
 const reportsRouter = require('./routes/reports');
 const roomsRouter = require('./routes/rooms');
 const scrubsRouter = require('./routes/scrubs');
-const returnsRouter = require('./routes/returns');
 const scrubsTypesRouter = require('./routes/scrubs_types');
 
-const Scrub = require("./models/Scrub");
-const EmailSender = require("./helper/EmailSender");
+const Scrub = require('./models/Scrub');
+const EmailSender = require('./helper/EmailSender');
 
 const app = express();
 const port = process.env.PORT || 9000;
@@ -25,7 +24,6 @@ app.use('/history', historyRouter);
 app.use('/reports', reportsRouter);
 app.use('/rooms', roomsRouter);
 app.use('/scrubs', scrubsRouter);
-app.use('/returns',returnsRouter);
 app.use('/scrubs/types',scrubsTypesRouter);
 
 

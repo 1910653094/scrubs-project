@@ -4,7 +4,7 @@ const HSRooms = () => {
 	return (
 		<PageWrapper>
 			<h2>Scrub Rooms</h2>
-			<Card />
+			<Card>Accessible in next version</Card>
 		</PageWrapper>
 	);
 };

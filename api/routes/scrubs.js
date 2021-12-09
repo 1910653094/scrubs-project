@@ -62,7 +62,7 @@ router.post('/borrow', [
         .isInt({ min: 1 }),
     body('id_given_by')
         .isInt({ min: 1 }),
-    body('amount')
+    body('quantity')
         .isInt({ min: 1 })
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -74,7 +74,24 @@ router.post('/borrow', [
     let obj = req.body;
     let resObj = await new Scrub(
         null, true, obj.borrowed_date, obj.return_date, obj.id_scrub_type)
-        .employeeBorrowsScrubs(obj.amount, obj.id_employee, obj.id_given_by);
+        .employeeBorrowsScrubs(obj.quantity, obj.id_employee, obj.id_given_by);
+    return res.status(resObj.status).json(resObj.response);
+});
+
+router.post('/return', [
+    body('id_history')
+        .isInt({ min: 1 }),
+    body('quantity')
+        .isInt({ min: 1 }),
+], async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    let obj = req.body;
+    let resObj = await new Scrub().employeeReturnsScrubs(obj.id_history, obj.quantity);
     return res.status(resObj.status).json(resObj.response);
 });
 

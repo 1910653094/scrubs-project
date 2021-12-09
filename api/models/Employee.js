@@ -74,7 +74,7 @@ class Employee {
             [this.email, password, this.name, this.profession, this.gender, this.shoe_preference, this.top_preference, this.bottom_preference, this.gloves_preference]
         );
 
-        if (resObj !== 200) {
+        if (resObj.status !== 200) {
             return resObj;
         }
 

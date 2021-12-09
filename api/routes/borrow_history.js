@@ -30,6 +30,8 @@ router.get('/fromEmployee', [
             if (o.completely_returned) status = "returned";
             else if (new Date(returnBy) < new Date()) status = "overdue";
 
+            if (o.status) status = o.status;
+
             return {
                 type: o.description,
                 size: o.size,
@@ -39,7 +41,8 @@ router.get('/fromEmployee', [
                 borrowDate: borrowed_date.toLocaleDateString(),
                 givenBy: o.name,
                 returnBy: returnBy.toLocaleDateString(),
-                status: status
+                status: status,
+                id_history: o.id_history
             };
         });
     }
