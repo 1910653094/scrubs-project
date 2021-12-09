@@ -46,7 +46,9 @@ class BorrowHistory {
         await Promise.all(resObj.response.map(async h => {
             let res = await this.getReportedFromBorrowHistory(h.id_history);
             if (res.status !== 200) {
-                return res;
+                console.log("report error");
+                // console.log(res);
+                return {};
             }
 
             let reportedSum = res.response[0].reported;
@@ -54,7 +56,9 @@ class BorrowHistory {
 
             res = await this.getReturnHistoryFromBorrowHistory(h.id_history);
             if (res.status !== 200) {
-                return res;
+                console.log("return error");
+                // console.log(res);
+                return {};
             }
             res.response.forEach(returnHistory => {
                 const qty = returnHistory.quantity;
