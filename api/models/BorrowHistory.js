@@ -41,31 +41,35 @@ class BorrowHistory {
             return resObj;
         }
 
+        let reportRes = await this.getReportedSumForEachBorrowHistory();
+        if (reportRes.status !== 200) {
+            console.log("report error");
+            console.log(reportRes);
+        }
+
+        let returnRes = await this.getReturnHistoryForEachBorrowHistory();
+        if (returnRes.status !== 200) {
+            console.log("return error");
+            console.log(returnRes);
+        }
+
         let history = [];
 
         await Promise.all(resObj.response.map(async h => {
-            let res = await this.getReportedFromBorrowHistory(h.id_history);
-            if (res.status !== 200) {
-                console.log("report error");
-                // console.log(res);
-                return {};
+            let reportHistory = reportRes.response.filter(r => r.id_history === h.id_history);
+            if (reportHistory.length > 0) {
+                let reportedSum = reportHistory[0].reported;
+                h.quantity -= reportedSum;
             }
 
-            let reportedSum = res.response[0].reported;
-            h.quantity -= reportedSum;
-
-            res = await this.getReturnHistoryFromBorrowHistory(h.id_history);
-            if (res.status !== 200) {
-                console.log("return error");
-                // console.log(res);
-                return {};
-            }
-            res.response.forEach(returnHistory => {
-                const qty = returnHistory.quantity;
-                h.quantity -= qty;
-                returnHistory.status = "returned";
-                history.push(returnHistory);
-            });
+            returnRes.response
+                .filter(r => r.id_history === h.id_history)
+                .forEach(returnHistory => {
+                    const qty = returnHistory.quantity;
+                    h.quantity -= qty;
+                    returnHistory.status = "returned";
+                    history.push(returnHistory);
+                });
 
             if (h.quantity > 0) {
                 return h;
@@ -76,17 +80,17 @@ class BorrowHistory {
         return resObj;
     };
 
-    getReportedFromBorrowHistory = async id => await query(
-        'Get sum of reported scrubs of distinct borrow history',
-        'SELECT COUNT(*) AS reported FROM borrow_history ' +
+    getReportedSumForEachBorrowHistory = async () => await query(
+        'Get sum of reported scrubs of each distinct borrow history',
+        'SELECT COUNT(*) AS reported, id_history FROM borrow_history ' +
         'JOIN scrub_borrow_history USING(id_history) ' +
         'JOIN report USING(id_scrub) ' +
-        'WHERE id_history = $1;',
-        [id]
+        'GROUP BY id_history;',
+        []
     );
 
-    getReturnHistoryFromBorrowHistory = async id => await query(
-        'Get * return history from distinct borrow history',
+    getReturnHistoryForEachBorrowHistory = async () => await query(
+        'Get * return history from each distinct borrow history',
         'SELECT id_history, count(id_scrub) as quantity, bh.borrowed_date, return_by, completely_returned, ' +
         'description, size, color, scrub_type.gender, name ' +
         'FROM scrub_borrow_history sbh ' +
@@ -94,10 +98,10 @@ class BorrowHistory {
         'JOIN scrub USING(id_scrub) ' +
         'JOIN scrub_type USING(id_scrub_type)' +
         'JOIN employee giver ON giver.id_employee = id_given_by ' +
-        'WHERE returned = TRUE AND sbh.id_history = $1 ' +
+        'WHERE returned = TRUE ' +
         'GROUP BY id_history, sbh.returned_date, bh.borrowed_date, return_by, completely_returned, ' +
         'description, size, color, scrub_type.gender, name',
-        [id]
+        []
     );
 
     insertBorrowHistory = async () => await query(
