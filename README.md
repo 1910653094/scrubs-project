@@ -27,9 +27,12 @@ in Terminal with:
 ```
 npm start
 ```
+```
 npm run dev
 ```
+``` 
 Frontend runs on http://localhost:3000/ - Backend runs on http://localhost:9000/ 
+
 
 or just: 
 ```
